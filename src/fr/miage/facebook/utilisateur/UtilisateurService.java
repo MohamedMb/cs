@@ -41,7 +41,8 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	public Utilisateur connexion(String mail, String password){
 		Utilisateur utilisateur = null;
 		try {
-			Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
 			String query = "SELECT * FROM facebook.utilisateur " +
 						   "WHERE mail = '" + mail + "' AND password = '" + password + "'";
@@ -69,7 +70,8 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	 */
 	public void ajouter(Utilisateur user, Utilisateur amis){
 		try {
-			Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
 			String query = "INSERT INTO ami(ID, ID_1) VALUES ( " + user.getId() + ", " + amis.getId() +")";
 			stmt.executeUpdate(query);
@@ -127,7 +129,8 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	 */
 	public Utilisateur inscrire(Utilisateur utilisateur){
 		try {
-			Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
 			stmt.executeUpdate("INSERT INTO utilisateur (NOM, PRENOM, MAIL, PASSWORD)" +
 							   "VALUES ('" + utilisateur.getNom() + "', '" + utilisateur.getPrenom() + "', '" + utilisateur.getMail() + "', '" + utilisateur.getPassword() +"' )"
@@ -147,7 +150,8 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	public static List<Utilisateur> getFriends(Utilisateur user){
 		List<Utilisateur> amis = new ArrayList<Utilisateur>();
 		try {
-			Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
 			//TODO Créer la query pour récupérer la liste d'amis
 			String query ="";
@@ -167,7 +171,8 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	public static void getDemandeAmis(Utilisateur user){
 		Set<Utilisateur> amis = new HashSet<Utilisateur>();
 		try {
-			Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
 			String query ="SELECT * FROM DEMANDE_AMI WHERE ID_1 = " + user.getId();
 			ResultSet rs = stmt.executeQuery(query);

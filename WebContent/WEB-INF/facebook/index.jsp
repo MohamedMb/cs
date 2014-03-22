@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<%@page import="fr.miage.facebook.utilisateur.UtilisateurService"%>
+<html>
+	<!-- Header -->
+	<%@ include file="header.jsp" %>
+	<script>
+		$(document).on('click', 'ta_comment > button.close', function() {
+			console.log('TEST');
+		});
+		
+		//--- fermeture du textarea des commentaires ---
+		$(document).on('click', '.btn_comment_close', function() {
+			$(this).parent('div.ta_comment').remove();
+			$(this).parent('div.media-body > a.btn.btn-link.btn_comment').css('display', 'block');
+		});
+		
+		$(document).ready(function(){				
+			$("#popoverAmi").popover({html:true, title: 'Amis', content: "Aucune demande d'ajout ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+			$("#popoverMessage").popover({html:true, title: 'Messages', content: "Aucun message ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+			$("#popoverNotification").popover({html:true, title: 'Notifications', content: "Aucune notification ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+			
+			$('#taStatut').one('focus',function()
+			{
+				$('#taStatut').wysihtml5({
+					color: true,
+					locale: "fr-FR"
+				});
+			});
+			
+			$('#taStatut').on('blur', function() {
+				if ($('.wysihtml5-toolbar').exist()) {
+					$('.wysihtml5-toolbar').remove();
+				}
+			});
+			
+			//--- clic sur le bouton d'upload de fichier ---
+			$("#upload_link").on('click', function(e){
+				e.preventDefault();
+				$("#upload:hidden").trigger('click');
+			});
+			
+			//--- clic sur le bouton commenter ---
+			$('.btn_comment').on('click', function() {
+				//if (!$(this).parent('div').hasClass('comment_active')) {
+					//$(this).parent('div').addClass('comment_active');
+					$(this).css('display', 'none');
+					$(this).parents('.media-body').append('<div class="ta_comment" style="width: 100%;">'+
+																'<button type="button" class="close pull-right btn_comment_close" aria-hidden="true">&times;</button>'+
+															    '<textarea class="form-control" rows="1" placeholder="Commente !" cols="500"></textarea>'+															   
+														    '</div>');
+				//}
+			});
+			
+			$('.ta_comment').children('.close').on('click', function() {
+				$('button.close').on('click', function() {
+					console.log('TEST');
+				});
+			});
+			
+			$('[data-toggle=popover]').on('click', function() {
+				console.log('test');
+			});				
+			
+		});
+				
+	</script>
+ 	<body>
+		<jsp:useBean id="currentUser" class="fr.miage.facebook.utilisateur.Utilisateur" scope="session"/>
+		<%
+			currentUser = (fr.miage.facebook.utilisateur.Utilisateur)request.getAttribute(UtilisateurService.currentUser);
+		%>
+		<!-- Navbar -->
+		<%@ include file="navbar.jsp" %>
+		
+		<div class="row-fluid">
+			<!-- Menu vertical -->
+			<%@ include file="menu_vertical.jsp" %>
+			
+			<div class="col-md-8">
+				<div class="panel panel-default">
+					<div class="panel-body" >
+						<div id="home" class="tab-pane">
+							<ul class="nav nav-pills">
+								<li class="active"><a href="#statut" data-toggle="pill">Statut</a></li>
+								<li><a href="#photo" data-toggle="pill">Photo</a></li>
+								<li><a href="#question" data-toggle="pill">Question</a></li>
+							</ul>
+							<div class="tab-content">
+								<div id="statut" class="input-group tab-pane active" style="padding-top:5px;">
+									<textarea id="taStatut" class="form-control" rows="3" placeholder="Partage ton statut !" cols="500"></textarea>
+								</div>
+								<button class="btnTest">Afficher HTML</button>
+								
+								<div id="photo" class="input-group tab-pane" style="padding-top:5px;">
+								  	<div class="panel-body">
+										<div class="row-fluid">
+											<div class="col-md-6">
+												<div class="well">
+													<input id="upload" type="file" style="display:none;"/><a id="upload_link" class="btn btn-link" style="text-decoration:none;"><p class="text-center" style="font-weight:bold;">Telecharger une photo</p></a>
+												</div>
+											</div>
+									  		<div class="col-md-6">
+									  			<div class="well">
+									  				<a href="../"><p class="text-center" style="font-weight:bold; padding-top:12px;">Charger depuis un album</p></a>
+									  			</div>
+									  		</div>
+										</div>
+								  	</div>
+								</div>
+								<div id="question" class="input-group tab-pane" style="padding-top:5px;">
+								  	<input type="text" class="form-control" placeholder="Pose ta question !">						  
+								</div>
+							</div>
+							<div class="divider"></div>
+							<hr />
+							<%					
+								String[] statuts = request.getParameterValues("statuts");
+								if (statuts != null) {
+									for (String statut : statuts) {
+							%>
+										<div class="media">
+											<a class="pull-left" href="#">
+												<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="64x64" style="width:64px; height:64px;">
+											</a>
+											<div class="media-body">
+												<h4 class="media-heading">Prenom NOM</h4>
+												<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante 
+													sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. 
+													Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+												<a class="btn btn-link" style="color:green;">J'aime</a>
+												<a class="btn btn-link" style="color:red;">J'aime pas</a>
+												<a class="btn btn-link btn_comment">Commenter</a>
+											</div>
+										</div>
+										<hr/>
+							<%
+									}
+								}
+							%>
+						</div>	
+						<div id="application" class="tab-pane"></div>
+					</div>
+				</div>
+			</div>	  
+		</div>
+	</body>
+</html>

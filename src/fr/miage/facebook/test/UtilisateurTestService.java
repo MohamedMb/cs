@@ -102,7 +102,7 @@ public class UtilisateurTestService {
 		try {
 			connexion = UtilisateurService.getContext().getInstance().getConnection();
 			Statement stmt = connexion.createStatement();
-			String query = "SELECT ID FROM facebook.utilisateur ";
+			String query = "SELECT id FROM facebook.utilisateur ";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
 				Utilisateur utilisateur = new Utilisateur();

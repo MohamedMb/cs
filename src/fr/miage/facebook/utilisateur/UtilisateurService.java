@@ -49,10 +49,10 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next()){
 				utilisateur = new Utilisateur();
-				utilisateur.setId(rs.getInt("ID"));
-				utilisateur.setNom(rs.getString("NOM"));
-				utilisateur.setPrenom(rs.getString("PRENOM"));
-				utilisateur.setMail(rs.getString("MAIL"));
+				utilisateur.setId(rs.getInt("id"));
+				utilisateur.setNom(rs.getString("nom"));
+				utilisateur.setPrenom(rs.getString("prenom"));
+				utilisateur.setMail(rs.getString("mail"));
 				
 			}
 			rs.close();
@@ -73,7 +73,7 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
 			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
-			String query = "INSERT INTO ami(ID, ID_1) VALUES ( " + user.getId() + ", " + amis.getId() +")";
+			String query = "INSERT INTO ami(id_utilisateur, id_ami) VALUES ( " + user.getId() + ", " + amis.getId() +")";
 			stmt.executeUpdate(query);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,7 +132,7 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
 			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
-			stmt.executeUpdate("INSERT INTO utilisateur (NOM, PRENOM, MAIL, PASSWORD)" +
+			stmt.executeUpdate("INSERT INTO utilisateur (nom, prenom, mail, password)" +
 							   "VALUES ('" + utilisateur.getNom() + "', '" + utilisateur.getPrenom() + "', '" + utilisateur.getMail() + "', '" + utilisateur.getPassword() +"' )"
 			);
 		} catch (Exception e) {
@@ -174,7 +174,7 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
 			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
-			String query ="SELECT * FROM DEMANDE_AMI WHERE ID_1 = " + user.getId();
+			String query ="SELECT * FROM ami WHERE id_utilisateur = " + user.getId() + " AND is_validation_demande = 0";
 			ResultSet rs = stmt.executeQuery(query);
 			if (rs.next()){
 				amis.add(UtilisateurService.load(rs));
@@ -188,12 +188,11 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	
 	protected static Utilisateur load(ResultSet rs) throws SQLException{
 		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setId(rs.getInt("ID"));
-		utilisateur.setNom(rs.getString("NOM"));
-		utilisateur.setPrenom(rs.getString("PRENOM"));
-		utilisateur.setMail(rs.getString("MAIL"));
+		utilisateur.setId(rs.getInt("id"));
+		utilisateur.setNom(rs.getString("nom"));
+		utilisateur.setPrenom(rs.getString("prenom"));
+		utilisateur.setMail(rs.getString("mail"));
 		return utilisateur;
 	}
-
 
 }

@@ -26,3 +26,8 @@
 span .white{
 	color:white;
 }
+
+.txtError {
+	display: none;
+	color: red;
+}

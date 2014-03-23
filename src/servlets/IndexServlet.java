@@ -12,26 +12,35 @@ import fr.miage.facebook.utilisateur.Utilisateur;
 import fr.miage.facebook.utilisateur.UtilisateurService;
 
 public class IndexServlet extends HttpServlet {
-	
+
+	private static final long serialVersionUID = 6935251785798019829L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		Utilisateur utilisateur = (Utilisateur)session.getAttribute(UtilisateurService.currentUser);
+		Utilisateur utilisateur = (Utilisateur) session.getAttribute(UtilisateurService.currentUser);
 		String url = "";
 		if (utilisateur != null)
-			this.getServletContext().getRequestDispatcher("/WEB-INF/facebook/index.jsp").forward(req, resp);
+			this.getServletContext()
+					.getRequestDispatcher("/WEB-INF/facebook/index.jsp")
+					.forward(req, resp);
 		else
 			resp.sendRedirect(resp.encodeRedirectURL("connexion"));
-		
+
 	}
-	
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		doGet(req, resp);
+		
+		// ajout d'un nouveau statut
+		if (req.getParameter("statut") != null) {
+			HttpSession session = req.getSession();
+			String statut = req.getParameter("statut");
+			Utilisateur user =  (Utilisateur) session.getAttribute(UtilisateurService.currentUser);
+			
+		}
 	}
-	
-	
 
 }

@@ -8,13 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.catalina.connector.Request;
-
 import fr.miage.facebook.utilisateur.Utilisateur;
 import fr.miage.facebook.utilisateur.UtilisateurService;
 
 public class ConnexionServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = -3976021118683231696L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

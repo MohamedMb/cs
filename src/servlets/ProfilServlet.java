@@ -13,6 +13,8 @@ import fr.miage.facebook.utilisateur.UtilisateurService;
 
 public class ProfilServlet extends HttpServlet {
 	
+	private static final long serialVersionUID = 642083537330985189L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

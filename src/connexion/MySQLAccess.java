@@ -16,7 +16,7 @@ public class MySQLAccess {
 	 * @throws Exception 
 	 */
 	public static Connection getConnect() throws Exception {
-		if (connect == null)
+		if (connect == null || connect.isClosed())
 			MySQLAccess.initialization();
 		return connect;
 	}

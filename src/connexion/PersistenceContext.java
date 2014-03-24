@@ -60,7 +60,7 @@ public class PersistenceContext {
 			config.setPartitionCount(NB_PARTITION);
 			poolBC = new BoneCP(config);
 		}
-				return poolBC;
+		return poolBC;
 	}
 	
 	/**

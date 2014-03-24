@@ -95,9 +95,8 @@
                                           placeholder="Exprime toi!" cols="500"></textarea>
                                 <hr>
                                 <div class="media">
-                                    <a class="pull-left" href="#"> <img
-                                            class="media-object img-thumbnail" src="bootstrap/img/user.png"
-                                            alt="64x64" style="width: 64px; height: 64px;">
+                                    <a class="pull-left" href="#">
+                                    	<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="64x64" style="width: 64px; height: 64px;">
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading">Prenom NOM</h4>
@@ -113,9 +112,9 @@
                                 </div>
                                 <hr />
                                 <div class="media">
-                                    <a class="pull-left" href="#"> <img
-                                            class="media-object img-thumbnail" src="bootstrap/img/user.png"
-                                            alt="64x64" style="width: 64px; height: 64px;">
+                                    <a class="pull-left" href="#">
+                                    	<img class="media-object img-thumbnail" src="bootstrap/img/user.png"
+                                             alt="64x64" style="width: 64px; height: 64px;">
                                     </a>
                                     <div class="media-body">
                                         <h4 class="media-heading">Prenom NOM</h4>

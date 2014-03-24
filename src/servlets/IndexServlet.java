@@ -22,8 +22,10 @@ public class IndexServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(UtilisateurService.currentUser);
 		String url = "";
-		if (utilisateur != null)
+		if (utilisateur != null){
+			UtilisateurService.synchronization(utilisateur);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/facebook/index.jsp").forward(req, resp);
+		}
 		else
 			resp.sendRedirect(resp.encodeRedirectURL("connexion"));
 

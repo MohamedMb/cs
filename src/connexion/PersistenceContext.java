@@ -25,7 +25,7 @@ public class PersistenceContext {
 	// Chaque connexion est créée dans un thread du côté de MySql
 	public static int NB_INITIAL_CONNEXION = 10;
 	public static int MAX_CONNEXION = /*152;Maximum configuré sur mysql (pour mettre autre chose, commande SQL : SET GLOBAL max_connections=xxx)*/
-			1842; //max sur machine avec 1GB de ram (prévoir 10% de moins pour plus de stabilité)
+			184; //max sur machine avec 1GB de ram (prévoir 10% de moins pour plus de stabilité)
 	public static int NB_PARTITION = 3;
 	private BoneCPConfig config = new BoneCPConfig();
 	private BoneCP poolBC = null;

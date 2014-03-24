@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -141,12 +142,17 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 		return utilisateur;
 	}
 	
+	public static void synchronization(Utilisateur utilisateur){
+		UtilisateurService.getDemandeAmis(utilisateur);
+		UtilisateurService.getFriends(utilisateur);
+	}
+	
 	/**
 	 * Retourne la liste d'amis passé en paramètre
-	 * @param user
+	 * @param utilisateur
 	 * @return
 	 */
-	public static List<Utilisateur> getFriends(Utilisateur user){
+	public static List<Utilisateur> getFriends(Utilisateur utilisateur){
 		List<Utilisateur> amis = new ArrayList<Utilisateur>();
 		try {
 			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
@@ -167,19 +173,49 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 		return amis;
 	}
 	
-	public static void getDemandeAmis(Utilisateur user){
+	public static void getDemandeAmis(Utilisateur utilisateur){
 		Set<Utilisateur> amis = new HashSet<Utilisateur>();
 		try {
 			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
 			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
-			String query ="SELECT * FROM ami WHERE id_utilisateur = " + user.getId() + " AND is_validation_demande = 0";
+			String query ="SELECT ami.id_utilisateur as id, utilisateur.nom, utilisateur.prenom," +
+					" utilisateur.mail, ami.is_validation_demande, ami.date_demande, ami.date_reponse" +
+					" FROM facebook.ami " +
+					"INNER JOIN facebook.utilisateur on ami.id_utilisateur = utilisateur.id" +
+					" WHERE id_ami = " + utilisateur.getId() + " AND date_reponse is null";
 			ResultSet rs = stmt.executeQuery(query);
-			if (rs.next()){
+			while (rs.next()){
 				amis.add(UtilisateurService.load(rs));
 			}
 			rs.close();
-			user.setDemandes(amis);
+			utilisateur.setDemandes(amis);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void demandeAmis(Utilisateur demandeur, Utilisateur demande){
+		try {
+			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
+			Statement stmt = connexion.createStatement();
+			stmt.executeUpdate("INSERT INTO ami (id_utilisateur, id_ami)" +
+							   "VALUES ('" + demandeur.getId() + "', '" + demande.getId() + "')");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void accepterDemande(Utilisateur demande, Utilisateur demandeur){
+		try {
+			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
+			Statement stmt = connexion.createStatement();
+			stmt.executeUpdate("UPDATE ami " +
+							   "SET date_reponse = '" + Calendar.getInstance().getTime() + "'," +
+							   		" is_validation_demande = '" + 1 + "' " +
+							   "WHERE id_utilisateur = " + demandeur.getId() + " AND id_ami = " + demande.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

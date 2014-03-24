@@ -60,7 +60,17 @@
 										<div class="row-fluid">
 											<div class="col-md-6">
 												<div class="well">
-													<input id="upload" type="file" style="display:none;"/><a id="upload_link" class="btn btn-link" style="text-decoration:none;"><p class="text-center" style="font-weight:bold;">Telecharger une photo</p></a>
+													<span class="btn btn-success fileinput-button">
+														<input id="fileupload" type="file" name="files[]" data-url="index" />	
+														<i class="glyphicon glyphicon-plus"></i>
+														<span>Importer une photo</span>
+													</span>
+													<div id="progress" class="progress">
+														<div class="progress-bar progress-bar-success"></div>
+													</div>
+<!-- 													<a id="upload_link" class="btn btn-link" style="text-decoration:none;"> -->
+<!-- 														<p class="text-center" style="font-weight:bold;">Importer une photo</p> -->
+<!-- 													</a> -->
 												</div>
 											</div>
 									  		<div class="col-md-6">
@@ -111,86 +121,109 @@
 		</div>
 	</body>
 	<script>	
+		$(document).ready(function() {
 	
-		//--- validation du formulaire d'ajout d'un statut ---
-		$('#formAjoutStatut').on('submit', function(e) {
-			e.preventDefault();
-			// test si la textarea n'est pas vide
-			if ($(this).find('textarea').val() != '') {
-				$(this).find('span.txtError').hide();
-				// envoi de la requête AJAX
-				$.ajax({
-					type: $(this).attr('method'),
-					url: $(this).attr('action'),
-					data: {
-						statut: $(this).find('textarea').val()
-					}
-				});
-			}else{
-				$(this).find('span.txtError').show();
-			}
-		});
-		
-		
-		//--- fermeture d'un commentaire ---
-		$(document).on('click', 'ta_comment > button.close', function() {
-			console.log('TEST');
-		});
-		
-		//--- fermeture du textarea des commentaires ---
-		$(document).on('click', '.btn_comment_close', function() {
-			$(this).parent('div.ta_comment').remove();
-			$(this).parent('div.media-body > a.btn.btn-link.btn_comment').css('display', 'block');
-		});
-		
-		$(document).ready(function(){				
-			$("#popoverAmi").popover({html:true, title: 'Amis', content: "Aucune demande d'ajout ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
-			$("#popoverMessage").popover({html:true, title: 'Messages', content: "Aucun message ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
-			$("#popoverNotification").popover({html:true, title: 'Notifications', content: "Aucune notification ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
-			
-			$('#formAjoutStatut textarea').one('focus',function()
-			{
-				$(this).wysihtml5({
-					stylesheets: [],
-					color: true,
-					locale: "fr-FR"
-				});
+			//--- upload de photos ---
+			$(function () {
+			    $('#fileupload').fileupload({
+			        dataType: 'json',
+			        progressall: function (e, data) {
+			            var progress = parseInt(data.loaded / data.total * 100, 10);
+			            $('#progress .bar').css(
+			                'width',
+			                progress + '%'
+			            );
+			        },
+			        done: function (e, data) {
+				        if (data.result != null) {
+			           	 	$.each(data.result.files, function (index, file) {
+			                	$('<p/>').text(file.name).appendTo(document.body);
+			            	});
+				        }
+			        }
+			    });
 			});
 			
-			/*$('#formAjoutStatut textarea').on('blur', function() {
-				if ($('.wysihtml5-toolbar').exists()) {
-					$('.wysihtml5-toolbar').remove();
-				}
-			});*/
-			
-			//--- clic sur le bouton d'upload de fichier ---
-			$("#upload_link").on('click', function(e){
+			//--- validation du formulaire d'ajout d'un statut ---
+			$('#formAjoutStatut').on('submit', function(e) {
 				e.preventDefault();
-				$("#upload:hidden").trigger('click');
+				// test si la textarea n'est pas vide
+				if ($(this).find('textarea').val() != '') {
+					$(this).find('span.txtError').hide();
+					// envoi de la requête AJAX
+					$.ajax({
+						type: $(this).attr('method'),
+						url: $(this).attr('action'),
+						data: {
+							statut: $(this).find('textarea').val()
+						}
+					});
+				}else{
+					$(this).find('span.txtError').show();
+				}
 			});
 			
-			//--- clic sur le bouton commenter ---
-			$('.btn_comment').on('click', function() {
-				//if (!$(this).parent('div').hasClass('comment_active')) {
-					//$(this).parent('div').addClass('comment_active');
-					$(this).css('display', 'none');
-					$(this).parents('.media-body').append('<div class="ta_comment" style="width: 100%;">'+
-																'<button type="button" class="close pull-right btn_comment_close" aria-hidden="true">&times;</button>'+
-															    '<textarea class="form-control" rows="1" placeholder="Commente !" cols="500"></textarea>'+															   
-														    '</div>');
-				//}
+			
+			//--- fermeture d'un commentaire ---
+			$(document).on('click', 'ta_comment > button.close', function() {
+				console.log('TEST');
 			});
 			
-			$('.ta_comment').children('.close').on('click', function() {
-				$('button.close').on('click', function() {
-					console.log('TEST');
+			//--- fermeture du textarea des commentaires ---
+			$(document).on('click', '.btn_comment_close', function() {
+				$(this).parent('div.ta_comment').remove();
+				$(this).parent('div.media-body > a.btn.btn-link.btn_comment').css('display', 'block');
+			});
+			
+			$(document).ready(function(){				
+				$("#popoverAmi").popover({html:true, title: 'Amis', content: "Aucune demande d'ajout ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+				$("#popoverMessage").popover({html:true, title: 'Messages', content: "Aucun message ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+				$("#popoverNotification").popover({html:true, title: 'Notifications', content: "Aucune notification ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+				
+				$('#formAjoutStatut textarea').one('focus',function()
+				{
+					$(this).wysihtml5({
+						stylesheets: [],
+						color: true,
+						locale: "fr-FR"
+					});
 				});
+				
+				/*$('#formAjoutStatut textarea').on('blur', function() {
+					if ($('.wysihtml5-toolbar').exists()) {
+						$('.wysihtml5-toolbar').remove();
+					}
+				});*/
+				
+				//--- clic sur le bouton d'upload de fichier ---
+				$("#upload_link").on('click', function(e){
+					e.preventDefault();
+					$("#upload:hidden").trigger('click');
+				});
+				
+				//--- clic sur le bouton commenter ---
+				$('.btn_comment').on('click', function() {
+					//if (!$(this).parent('div').hasClass('comment_active')) {
+						//$(this).parent('div').addClass('comment_active');
+						$(this).css('display', 'none');
+						$(this).parents('.media-body').append('<div class="ta_comment" style="width: 100%;">'+
+																	'<button type="button" class="close pull-right btn_comment_close" aria-hidden="true">&times;</button>'+
+																    '<textarea class="form-control" rows="1" placeholder="Commente !" cols="500"></textarea>'+															   
+															    '</div>');
+					//}
+				});
+				
+				$('.ta_comment').children('.close').on('click', function() {
+					$('button.close').on('click', function() {
+						console.log('TEST');
+					});
+				});
+				
+				$('[data-toggle=popover]').on('click', function() {
+					console.log('test');
+				});				
+				
 			});
-			
-			$('[data-toggle=popover]').on('click', function() {
-				console.log('test');
-			});				
-			
 		});
 	</script>
 </html>

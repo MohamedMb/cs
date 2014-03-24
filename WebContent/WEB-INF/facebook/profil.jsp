@@ -221,11 +221,32 @@
                             </div>
 
                             <!-- Affichage tab Amis -->
-                            <div id="aff_amis" class="input-group tab-pane"
-                                 style="padding-top: 5px;">
-                                <input type="text" class="form-control"
-                                       placeholder="Pose ta question !">
-                            </div>
+                            <div id="aff_amis" class="input-group tab-pane" style="padding-top: 5px;">
+							<ul class="list-inline">
+								<li style="margin-right: 30px;"><div class="media">
+										<a class="pull-left" href="#"> <img
+											class="media-object img-thumbnail"
+											src="bootstrap/img/user.png" alt="64x64"
+											style="width: 64px; height: 64px;">
+										</a>
+										<div class="media-body pull-right">
+											<h4 class="media-heading" style="margin-top: 25px;">Ami
+												1</h4>
+										</div>
+									</div></li>
+								<li style="margin-right: 30px;"><div class="media">
+										<a class="pull-left" href="#"> <img
+											class="media-object img-thumbnail"
+											src="bootstrap/img/user.png" alt="64x64"
+											style="width: 64px; height: 64px;">
+										</a>
+										<div class="media-body pull-right">
+											<h4 class="media-heading" style="margin-top: 25px;">Ami
+												2</h4>
+										</div>
+									</div></li>
+							</ul>
+						</div>
                         </div>
 
                     </div>

@@ -11,7 +11,11 @@
 	<script src="js/jquery.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
 	<script src="bootstrap/js/bootstrap-dropdown.js"></script>
-
+	
+	<link rel="stylesheet" href="jquery-file-upload/css/blueimp-gallery.min.css" />
+	<link rel="stylesheet" href="jquery-file-upload/css/jquery.fileupload.css" />
+	<link rel="stylesheet" href="jquery-file-upload/css/jquery.fileupload-ui.css" />
+	
 	<!-- wysiwyg bootstrap 3 -->
 	<link rel="stylesheet" type="text/css" href="bootstrap3-wysihtml5-master/src/bootstrap-wysihtml5.css" />
 	<link rel="stylesheet" type="text/css" href="bootstrap3-wysihtml5-master/lib/css/bootstrap3-wysiwyg5-color.css" />
@@ -42,4 +46,15 @@
 	
 	<script src="bootstrap-image-gallery/js/bootstrap-image-gallery.min.js"></script>
 	<script src="bootstrap-image-gallery/js/blueimp-gallery.min.js"></script>
+	
+		<!-- jQuery File Upload -->
+	
+	<script src="jquery-file-upload/js/load-image.js"></script>
+	<script src="jquery-file-upload/js/load-image-meta.js"></script>
+	<script src="jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
+	<script src="jquery-file-upload/js/jquery.iframe-transport.js"></script>
+	<script src="jquery-file-upload/js/jquery.fileupload.js"></script>
+	<script src="jquery-file-upload/js/jquery.fileupload-process.js"></script>
+	<script src="jquery-file-upload/js/jquery.fileupload-image.js"></script>
+	
 </head>

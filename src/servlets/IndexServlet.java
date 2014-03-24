@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.miage.facebook.utilisateur.Statut;
 import fr.miage.facebook.utilisateur.Utilisateur;
 import fr.miage.facebook.utilisateur.UtilisateurService;
 
@@ -22,9 +23,7 @@ public class IndexServlet extends HttpServlet {
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(UtilisateurService.currentUser);
 		String url = "";
 		if (utilisateur != null)
-			this.getServletContext()
-					.getRequestDispatcher("/WEB-INF/facebook/index.jsp")
-					.forward(req, resp);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/facebook/index.jsp").forward(req, resp);
 		else
 			resp.sendRedirect(resp.encodeRedirectURL("connexion"));
 
@@ -37,9 +36,16 @@ public class IndexServlet extends HttpServlet {
 		// ajout d'un nouveau statut
 		if (req.getParameter("statut") != null) {
 			HttpSession session = req.getSession();
-			String statut = req.getParameter("statut");
 			Utilisateur user =  (Utilisateur) session.getAttribute(UtilisateurService.currentUser);
+			String libelle = req.getParameter("statut");
+			Statut statut = new Statut(user, libelle);
 			
+			UtilisateurService us = new UtilisateurService();
+			if (us.ajouterStatut(statut)) {
+				
+			}else{
+				
+			}
 		}
 	}
 

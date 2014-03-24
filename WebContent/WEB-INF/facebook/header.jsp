@@ -5,12 +5,13 @@
 	
 	<!-- Bootstrap -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="bootstrap/css/style.css" rel="stylesheet" />
+	<link href="css/style.css" rel="stylesheet" />
 	
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="js/jquery.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
-	
+	<script src="bootstrap/js/bootstrap-dropdown.js"></script>
+
 	<!-- wysiwyg bootstrap 3 -->
 	<link rel="stylesheet" type="text/css" href="bootstrap3-wysihtml5-master/src/bootstrap-wysihtml5.css" />
 	<link rel="stylesheet" type="text/css" href="bootstrap3-wysihtml5-master/lib/css/bootstrap3-wysiwyg5-color.css" />
@@ -41,11 +42,4 @@
 	
 	<script src="bootstrap-image-gallery/js/bootstrap-image-gallery.min.js"></script>
 	<script src="bootstrap-image-gallery/js/blueimp-gallery.min.js"></script>
-	
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
 </head>

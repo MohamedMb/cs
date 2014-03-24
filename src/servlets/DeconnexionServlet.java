@@ -20,17 +20,9 @@ public class DeconnexionServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		if (req.getSession().getAttribute(UtilisateurService.currentUser) != null)
-			req.getSession().setAttribute(UtilisateurService.currentUser, null);
-		resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "connexion"));
+		HttpSession session = req.getSession();
+		session.invalidate();
+		
+		resp.sendRedirect(resp.encodeRedirectURL(req.getContextPath() + "/connexion"));
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		this.doGet(req, resp);
-	}
-	
-	
-
 }

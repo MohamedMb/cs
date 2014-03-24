@@ -19,18 +19,14 @@
 			<li id="message"><a id="popoverMessage" class="btn btn-link" data-toggle="popover" data-placement="bottom"><span class="glyphicon glyphicon-send" style="color:white;"></span></a></li>
 			<li id="notification"><a id="popoverNotification" class="btn btn-link" data-toggle="popover" data-placement="bottom"><span class="glyphicon glyphicon-globe" style="color:white;"></span></a></li>
 		</ul>
-		<ul class="nav navbar-nav" style="padding-top:5px;  margin-left:168px;">	
-			<li>
-				<form class="navbar-form" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Recherche" style="width:100%;">
-					</div>
-					<button type="submit" class="btn btn-default">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</form>
-			</li>
-		</ul>
+		<form class="navbar-form navbar-left" role="search" style="width: 40%;">
+			<div class="form-group" style="width: 80%;">
+				<input type="text" class="form-control" placeholder="Recherche">
+			</div>
+			<button type="submit" class="btn btn-default">
+				<span class="glyphicon glyphicon-search"></span>
+			</button>
+		</form>
 		<ul class="nav navbar-nav navbar-right" style="padding-top:8.5px;">
 			<li>
 				<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="32x32" style="width:46px; height:46px;">
@@ -46,11 +42,11 @@
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
-						<li><a href="#">Creer un groupe</a></li>
-						<li><a href="#">Creer une page</a></li>
-						<li><a href="./option.html">Parametres</a></li>
+						<li><a href="#">Créer un groupe</a></li>
+						<li><a href="#">Créer une page</a></li>
+						<li><a href="./option.html">Paramètres</a></li>
 						<li class="divider"></li>
-						<li><a href="#">Deconnexion</a></li>
+						<li><a href="deconnexion">Déconnexion</a></li>
 					</ul>
 				</div>
 			</li>

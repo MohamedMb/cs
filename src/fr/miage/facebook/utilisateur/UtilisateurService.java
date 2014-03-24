@@ -53,7 +53,6 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 				utilisateur.setNom(rs.getString("nom"));
 				utilisateur.setPrenom(rs.getString("prenom"));
 				utilisateur.setMail(rs.getString("mail"));
-				
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -193,6 +192,25 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 		utilisateur.setPrenom(rs.getString("prenom"));
 		utilisateur.setMail(rs.getString("mail"));
 		return utilisateur;
+	}
+	
+	/*
+	 * Ajout d'un statut pour un utilisateur.
+	 * @param Statut statut Statut de l'utilisateur
+	 * @return vrai si le statut à été correctement ajouté, faux sinon.
+	 */
+	public static boolean ajouterStatut(Statut statut) {
+		try {
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
+			Statement stmt = connexion.createStatement();
+			String query ="INSERT INTO statut ('id_utilisateur', 'libelle') VALUES ('" + statut.getUtilisateur().getId() + "', '" + statut.getLibelle() + "')";
+			ResultSet rs = stmt.executeQuery(query);
+			rs.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }

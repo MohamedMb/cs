@@ -7,41 +7,55 @@
 	id="WebApp_ID" 
 	version="3.0">
 	
+	<!-- Index -->
 	<servlet>
 	    <servlet-name>IndexServlet</servlet-name>
 	    <servlet-class>servlets.IndexServlet</servlet-class>
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<!-- Connexion -->
 	<servlet>
 	    <servlet-name>ConnexionServlet</servlet-name>
 	    <servlet-class>servlets.ConnexionServlet</servlet-class>
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<!-- Déconnexion -->
 	<servlet>
 	    <servlet-name>DeconnexionServlet</servlet-name>
 	    <servlet-class>servlets.DeconnexionServlet</servlet-class>
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<!-- Profil -->
 	<servlet>
 	    <servlet-name>ProfilServlet</servlet-name>
 	    <servlet-class>servlets.ProfilServlet</servlet-class>
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet-mapping>
-	    <servlet-name>ConnexionServlet</servlet-name>
-	    <url-pattern>/connexion</url-pattern>
-	</servlet-mapping>
+	
+	<!-- Index -->
 	<servlet-mapping>
 	    <servlet-name>IndexServlet</servlet-name>
 	    <url-pattern>/index</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Connexion -->
+	<servlet-mapping>
+	    <servlet-name>ConnexionServlet</servlet-name>
+	    <url-pattern>/connexion</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Profil -->
 	<servlet-mapping>
 	    <servlet-name>ProfilServlet</servlet-name>
 	    <url-pattern>/profil</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Déconnexion -->
 	<servlet-mapping>
 	    <servlet-name>DeconnexionServlet</servlet-name>
 	    <url-pattern>/deconnexion</url-pattern>
 	</servlet-mapping>
-	
 </web-app>

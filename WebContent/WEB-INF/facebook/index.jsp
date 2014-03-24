@@ -33,6 +33,25 @@
 										<span class="txtError">Vous devez remplir le champs de texte.</span>
 										<input type="submit" class="btn btn-primary pull-right" />
 									</form>
+									<hr />
+									<div class="media">
+	                                    <a class="pull-left" href="#">
+	                                    	<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="64x64" style="width: 64px; height: 64px;">
+	                                    </a>
+	                                    <div class="media-body">
+	                                        <h4 class="media-heading">Prenom NOM</h4>
+	                                        <p>
+	                                        	Cras sit amet nibh libero, in gravida nulla. Nulla vel
+	                                            metus scelerisque ante sollicitudin commodo. Cras purus odio,
+	                                            vestibulum in vulputate at, tempus viverra turpis. Fusce
+	                                            condimentum nunc ac nisi vulputate fringilla. Donec lacinia
+	                                            congue felis in faucibus.
+	                                        </p>
+	                                        <a class="btn btn-link" style="color: green;">J'aime</a>
+	                                        <a class="btn btn-link" style="color: red;">J'aime pas</a>
+	                                        <a class="btn btn-link btn_comment">Commenter</a>
+	                                    </div>
+	                                </div>
 								</div>
 								
 								<!-- Formulaire d'upload de photos -->

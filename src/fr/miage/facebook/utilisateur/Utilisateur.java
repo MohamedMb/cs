@@ -48,12 +48,38 @@ public class Utilisateur extends BusinessEntity {
 	public void setPhotos(Set<Photo> photos) {this.photos = photos;}
 	public void setAlbums(Set<Album> albums) {this.albums = albums;}
 	
+	/**
+	 * Constructeur
+	 */
+	public Utilisateur(){};
+	
+	/**
+	 * Constructeur
+	 * @param nom
+	 * @param prenom
+	 * @param mail
+	 * @param telephone
+	 * @param dateNaissance
+	 * @param password
+	 */
+	public Utilisateur(String nom, String prenom, String mail,
+					   String telephone, Calendar dateNaissance, String password) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.mail = mail;
+		this.telephone = telephone;
+		this.dateNaissance = dateNaissance;
+		this.password = password;
+	}
+	
 	public Set<Utilisateur> getDemandes() {
 		return demandes;
 	}
+	
 	public void setDemandes(Set<Utilisateur> demandes) {
 		this.demandes = demandes;
 	}
+	
 	public String toString(){
 		return super.toString() + " " + this.getPrenom() + " " + this.getNom();
 	}

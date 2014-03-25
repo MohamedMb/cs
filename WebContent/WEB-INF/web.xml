@@ -38,6 +38,13 @@
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<!-- Option -->
+	<servlet>
+	    <servlet-name>OptionServlet</servlet-name>
+	    <servlet-class>servlets.OptionServlet</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<!-- Profil -->
 	<servlet>
 	    <servlet-name>ProfilServlet</servlet-name>
@@ -67,5 +74,11 @@
 	<servlet-mapping>
 	    <servlet-name>DeconnexionServlet</servlet-name>
 	    <url-pattern>/deconnexion</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Option -->
+	<servlet-mapping>
+	    <servlet-name>OptionServlet</servlet-name>
+	    <url-pattern>/option</url-pattern>
 	</servlet-mapping>
 </web-app>

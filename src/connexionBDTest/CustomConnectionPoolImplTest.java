@@ -27,11 +27,15 @@ public class CustomConnectionPoolImplTest {
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://127.0.0.1:3306/facebook";
 	private static final String USER_NAME = "root";
-	private static final String PASSWORD = "mysql";
-	private static final int MAX_CONNECTIONS = 15;
+	private static final String PASSWORD = "";
+	private static final int MAX_CONNECTIONS = 1500;
 	private static final int INITIAL_CONNECTIONS = 2;
 	private static final boolean WAIT_IF_BUSY = true;
 
+	
+	private static ThreadGroup tg = new ThreadGroup("mp");
+	
+	
 
 	
 
@@ -54,7 +58,7 @@ public class CustomConnectionPoolImplTest {
 
 			logger.debug("Connection pool created" + pool);
 
-			this.cx = this.pool.getConnection();
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,14 +99,16 @@ public class CustomConnectionPoolImplTest {
 				this.pool.run();
 
 				//Envoyer les requetes
-				for ( int i = 0; i < NB_QUERY; i++){
+				for (int i = 0; i < NB_QUERY; i++){
+					this.cx = this.pool.getConnection();
 					java.sql.PreparedStatement ps = cx.prepareStatement("SELECT * FROM facebook.utilisateur");
 					res = ps.executeQuery();
 					res.close();
+					this.pool.releaseConnection(cx);
 				}
 								
 				//Libérer la connexion pour un autre utilisateur
-				this.pool.releaseConnection(cx);
+				//this.pool.releaseConnection(cx);
 				
 				end = System.currentTimeMillis();
 				

@@ -60,13 +60,17 @@
                 <img class="media-object"
                      src="bootstrap/img/photo-couverture-facebook.jpg"
                      alt="cover_picture"
-                     style="width: 100%; height: 315px; z-index: -999">
+                     style="width: 100%; height: 315px; z-index: -999"><!-- Il faut changer le chemin de la tof' de couv' via une requete -->
                 <div style="position: absolute">
                     <a href="#" class="thumbnail pull-left"
                        style="z-index: 999; margin-top: -150px; margin-left: 30px;"> <img
                             data-src="holder.js/180x180" alt="..." src="bootstrap/img/user.png"
                             style="width: 180px; height: 180px;">
                     </a>
+                </div>
+                <div style="position: absolute; "><!-- Faire le test, si déja ami ou si ajout  -->
+                    <button type="button" class="btn btn-primary" style="z-index: 999;margin-left:94%; margin-top:-90px; background-color:#3B5998; border:2px solid white;"><span class="glyphicon glyphicon-plus"></span>
+                    Ajouter</button>
                 </div>
             </div>
         </div>

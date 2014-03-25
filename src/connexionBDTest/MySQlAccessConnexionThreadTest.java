@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
-import connexionBDThred.MySQLAccessThred;
+import connexionBDThred.MySQLAccessThread;
 
 /**
  * @author Bouhlal
@@ -26,7 +26,7 @@ public class MySQlAccessConnexionThreadTest {
 	public void connextionDriverTest() throws SQLException{
 
 		
-		MySQLAccessThred mySQLAccessThred = null;
+		MySQLAccessThread mySQLAccessThred = null;
 		int i = 0;
 		
 		long begin = 0;
@@ -36,7 +36,7 @@ public class MySQlAccessConnexionThreadTest {
 			
 			begin = System.currentTimeMillis();
 			for ( i = 0; ; i++){
-				mySQLAccessThred = new MySQLAccessThred();
+				mySQLAccessThred = new MySQLAccessThread();
 				mySQLAccessThred.start();
 			}
 			

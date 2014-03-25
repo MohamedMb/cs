@@ -16,7 +16,7 @@ import connexion.MySQLAccess;
  * @author Bouhlal
  *
  */
-public class MySQLAccessThred extends Thread{
+public class MySQLAccessThread extends Thread{
 
 	private Connection cx = null;
 	private int nbQuery;
@@ -27,7 +27,7 @@ public class MySQLAccessThred extends Thread{
 	 * 
 	 * @param nbQuery : nombre de requete a envoyer a la BD
 	 */
-	public MySQLAccessThred(int nbQuery){
+	public MySQLAccessThread(int nbQuery){
 		this.nbQuery = nbQuery;
 	}
 
@@ -35,7 +35,7 @@ public class MySQLAccessThred extends Thread{
 	 * Par défaut le nombre de requete est égal à 1
 	 */
 
-	public MySQLAccessThred(){
+	public MySQLAccessThread(){
 		this(1);
 	}
 
@@ -44,32 +44,17 @@ public class MySQLAccessThred extends Thread{
 
 		ResultSet res = null;
 		//Connection cx = null;
-
-
-		
 		try {
-
-			cx = MySQLAccess.getConnect();
-
 			for ( int i = 0; i < this.nbQuery; i++){
+				cx = MySQLAccess.getConnect();
 				java.sql.PreparedStatement ps = cx.prepareStatement("SELECT * FROM facebook.utilisateur");
 				res = ps.executeQuery();
+				res.close();
+				cx.close();
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally{
-
-			try {
-				//Fermer ResultSet
-				res.close();
-
-				//Fermer la connexion
-				cx.close();
-
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 
 

@@ -46,6 +46,7 @@ public class MySQLAccessThred extends Thread{
 		//Connection cx = null;
 
 
+		
 		try {
 
 			cx = MySQLAccess.getConnect();

@@ -26,7 +26,7 @@ public class MySQLAccess {
 	 * Initialize the connexion
 	 */
 	private static void initialization(){
-		try {
+		try { 
 			Class.forName("com.mysql.jdbc.Driver");
 						
 			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/facebook", "root", "");

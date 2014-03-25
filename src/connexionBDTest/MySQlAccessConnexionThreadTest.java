@@ -12,8 +12,9 @@ import connexionBDThred.MySQLAccessThred;
 
 /**
  * @author Bouhlal
- *
- */
+ * 
+ */  
+
 public class MySQlAccessConnexionThreadTest {
 	
 	/**

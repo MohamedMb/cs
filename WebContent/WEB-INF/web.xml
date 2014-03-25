@@ -11,7 +11,17 @@
 	<servlet>
 	    <servlet-name>IndexServlet</servlet-name>
 	    <servlet-class>servlets.IndexServlet</servlet-class>
-	    <load-on-startup>1</load-on-startup>
+	    <init-param>
+	    	<param-name>chemin</param-name>
+	    	<param-value>/upload</param-value>
+	    </init-param>
+	   	<load-on-startup>1</load-on-startup>
+	    <multipart-config>
+	    	<location>/temp</location>
+	    	<max-file-size>10485760</max-file-size>
+	    	<max-request-size>52428800</max-request-size>
+	    	<file-size-threshold>1048576</file-size-threshold>
+	    </multipart-config>
 	</servlet>
 	
 	<!-- Connexion -->
@@ -32,13 +42,6 @@
 	<servlet>
 	    <servlet-name>ProfilServlet</servlet-name>
 	    <servlet-class>servlets.ProfilServlet</servlet-class>
-	    <load-on-startup>1</load-on-startup>
-	</servlet>
-	
-	<!-- Admin -->
-	<servlet>
-	    <servlet-name>AdminServlet</servlet-name>
-	    <servlet-class>servlets.AdminServlet</servlet-class>
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
 	
@@ -64,11 +67,5 @@
 	<servlet-mapping>
 	    <servlet-name>DeconnexionServlet</servlet-name>
 	    <url-pattern>/deconnexion</url-pattern>
-	</servlet-mapping>
-	
-	<!-- Admin -->
-	<servlet-mapping>
-	    <servlet-name>AdminServlet</servlet-name>
-	    <url-pattern>/admin</url-pattern>
 	</servlet-mapping>
 </web-app>

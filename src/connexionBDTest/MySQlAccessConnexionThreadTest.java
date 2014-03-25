@@ -16,9 +16,6 @@ import connexionBDThred.MySQLAccessThred;
  */
 public class MySQlAccessConnexionThreadTest {
 	
-
-
-
 	/**
 	 * Tester le nombre maximum de connexion simultanée de la BD
 	 * @throws SQLException

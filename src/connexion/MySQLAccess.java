@@ -11,6 +11,7 @@ public class MySQLAccess {
 	private Statement statement = null;
 
 
+	
 	/**
 	 * @return the connection to the DBB
 	 * @throws Exception 

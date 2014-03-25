@@ -16,9 +16,6 @@ import com.sun.istack.internal.logging.Logger;
 
 import fr.miage.facebook.pool.homemade.CustomConnectionPoolImpl;
 
-
-
-
 /**
  * Classe permettant de jouer le rôle d'un navigateur afin de
  * tester le nombre maximal de connexion simultanée dont peut supporter le serveur

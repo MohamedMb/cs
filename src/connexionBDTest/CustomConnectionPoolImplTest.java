@@ -3,15 +3,13 @@
  */
 package connexionBDTest;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
+
 import java.sql.SQLException;
 
 import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
+import client.UtilisateurPoolConnexionThead;
 import fr.miage.facebook.pool.homemade.CustomConnectionPoolImpl;
 
 /**
@@ -20,8 +18,8 @@ import fr.miage.facebook.pool.homemade.CustomConnectionPoolImpl;
  */
 public class CustomConnectionPoolImplTest {
 
-	private static final int NB_QUERY = 5;
-	private static final int NB_MINUTE = 1;
+	private static final int NB_UTISATEUR = 1_000;
+	private static final int NB_QUERY = 3;
 
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
@@ -33,103 +31,50 @@ public class CustomConnectionPoolImplTest {
 	private static final boolean WAIT_IF_BUSY = true;
 
 
-	
 
-	private CustomConnectionPoolImpl pool = null;
+
 
 
 	private Logger logger = Logger.getLogger(getClass());
 
 
-	private Connection cx;
-
-
-	@Before
-	public void initialization(){
-
-
-		try {
-			pool = new CustomConnectionPoolImpl(DRIVER, URL, USER_NAME, PASSWORD,
-					INITIAL_CONNECTIONS, MAX_CONNECTIONS, WAIT_IF_BUSY);
-
-			logger.debug("Connection pool created" + pool);
-
-			this.cx = this.pool.getConnection();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-
-	@After
-	public void close(){
-		//Fermer toutes les connexions 
-		this.pool.closeAllConnections();
-		logger.debug("All conncetions are closed");
-
-		//Fermer la connxexion
-		try {
-			this.cx.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-
 	@Test
 	public void connexionBDTest(){
 
-		ResultSet res = null;
 		long begin = 0;
 		long end;
-		int nbCx = 0;
-		
+		int nbUtilisateur = 0;
+
 		begin = System.currentTimeMillis();
-	
 
-		try {
-			for ( ; ; nbCx++){
-				
-				this.pool.run();
+		try{
+			for ( nbUtilisateur = 1; nbUtilisateur <= NB_UTISATEUR ; nbUtilisateur++){
 
-				//Envoyer les requetes
-				for ( int i = 0; i < NB_QUERY; i++){
-					java.sql.PreparedStatement ps = cx.prepareStatement("SELECT * FROM facebook.utilisateur");
-					res = ps.executeQuery();
-					res.close();
-				}
-								
-				//Libérer la connexion pour un autre utilisateur
-				this.pool.releaseConnection(cx);
+				CustomConnectionPoolImpl pool = new CustomConnectionPoolImpl(DRIVER, URL, USER_NAME, PASSWORD,
+						INITIAL_CONNECTIONS, MAX_CONNECTIONS, WAIT_IF_BUSY);
+				UtilisateurPoolConnexionThead uPool = new UtilisateurPoolConnexionThead(NB_QUERY, pool);
+				uPool.start();
 				
-				end = System.currentTimeMillis();
-				
-				
-				if ( end  - begin >= NB_MINUTE * 60 * 1000){
-					logger.info( "Pendant "+ NB_MINUTE  +" minute(s), on a " + nbCx + "connexion(s) BD simultanée(s)." );
-					///System.out.println(this.pool.toString()+ "\n");
-					System.out.println( "Le nombre de requete envoyée par chaque utilsateur est : " + NB_QUERY );
-					System.out.println( "Pendant "+ NB_MINUTE  +" minute(s), on a " + nbCx + " connexion(s) BD simultanée(s)." );
-					System.out.println( "En moyenne, chaque connexion met  " + (end  - begin) / nbCx + " ms" );
-					System.out.println( "\nLe nombre total de requete envoyée a la BD est : " + (NB_QUERY * nbCx) );
-					System.out.println( "En moyenne, chaque requete met " + (( NB_MINUTE * 60 * 1000)  / (NB_QUERY * nbCx))  + " ms.");
-
-					
-					break;
-				}
-				
+				System.out.print(".");
 			}
-
-
-		} catch (SQLException e) {
+		
+		
+		}catch(SQLException e){
 			e.printStackTrace();
+
+		}finally{
+
+			end = System.currentTimeMillis();
+
+			System.out.println();
+			System.out.println( "* Le nombre d'utilisateur est : " + NB_UTISATEUR );
+			System.out.println( "* Le nombre de requete envoyée par chaque utilsateur est : " + NB_QUERY );
+			System.out.println( "* Le Temps mit pour envoyer les " + (NB_QUERY * NB_UTISATEUR) + " est : " + (end - begin) +" ms" );
+			System.out.println( "* En moyenne, chaque requete met " +  (end - begin) / (NB_QUERY * NB_UTISATEUR) + " ms");
+
 		}
+
 	}
-
-
-
 
 
 

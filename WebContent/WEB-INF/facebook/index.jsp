@@ -59,15 +59,15 @@
 								  	<div class="panel-body">
 										<div class="row-fluid">
 											<div class="col-md-6">
-												<div class="well">
+												<div id="importPhoto" class="well">
 													<span class="btn btn-success fileinput-button">
-														<input id="fileupload" type="file" name="files[]" data-url="index" />	
+														<input id="fileupload" type="file" name="photo" data-url="index" />	
 														<i class="glyphicon glyphicon-plus"></i>
 														<span>Importer une photo</span>
 													</span>
-													<div id="progress" class="progress">
-														<div class="progress-bar progress-bar-success"></div>
-													</div>
+ 													<div class="progress hide">
+ 														<div class="progress-bar progress-bar-success"></div>
+ 													</div>
 <!-- 													<a id="upload_link" class="btn btn-link" style="text-decoration:none;"> -->
 <!-- 														<p class="text-center" style="font-weight:bold;">Importer une photo</p> -->
 <!-- 													</a> -->
@@ -75,7 +75,9 @@
 											</div>
 									  		<div class="col-md-6">
 									  			<div class="well">
-									  				<a href="../"><p class="text-center" style="font-weight:bold; padding-top:12px;">Charger depuis un album</p></a>
+									  				<a href="../">
+									  					<span class="text-center" style="font-weight:bold; padding-top:12px;">Charger depuis un album</span>
+									  				</a>
 									  			</div>
 									  		</div>
 										</div>
@@ -122,11 +124,12 @@
 	</body>
 	<script>	
 		$(document).ready(function() {
-	
+			
 			//--- upload de photos ---
 			$(function () {
 			    $('#fileupload').fileupload({
 			        dataType: 'json',
+			        singleFileUploads: true,
 			        progressall: function (e, data) {
 			            var progress = parseInt(data.loaded / data.total * 100, 10);
 			            $('#progress .bar').css(

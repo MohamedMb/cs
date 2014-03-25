@@ -1,33 +1,46 @@
-.navbar-inner{
-	background-color:#3B5998 ;
+.navbar-inner {
+	background-color: #3B5998;
 	/*padding-left:0;
 	padding-right:0;*/
 }
 
-.navbar{
-	background-color:#3B5998 ;
+.navbar {
+	background-color: #3B5998;
 	/*padding-left:0;
 	padding-right:0;*/
 }
 
-.nav-stacked li a{
-	color:gray;
+.nav-stacked li a {
+	color: gray;
 }
 
-.nav-pills li.active a{
-	background-color:#3B5998 ;
+.nav-pills li.active a {
+	background-color: #3B5998;
 }
 
 /*.navbar .brand{
 	margin-left:-20px;
 	margin-right:-20px;
 }*/
-
-span .white{
-	color:white;
+span .white {
+	color: white;
 }
 
 .txtError {
 	display: none;
 	color: red;
+}
+
+#importPhoto .progress {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#links .row-fluid {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+element.style {
+	overflow: auto;
 }

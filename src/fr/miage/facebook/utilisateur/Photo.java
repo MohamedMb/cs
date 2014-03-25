@@ -16,5 +16,21 @@ public class Photo extends BusinessEntity {
 	/**
 	 * Lien permettant d'accéder à la photo
 	 */
-	private URL lien;
+	private String lien;
+	
+	/**
+	 * Constructeur
+	 */
+	public Photo() {}
+	
+	/**
+	 * Constructeur
+	 */
+	public Photo(String lien) {this.lien = lien;}
+
+	public String getLien() {return lien;}
+
+	public void setLien(String lien) {this.lien = lien;}
+	
+	
 }

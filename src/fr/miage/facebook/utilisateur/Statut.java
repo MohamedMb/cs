@@ -3,6 +3,8 @@
  */
 package fr.miage.facebook.utilisateur;
 
+import java.util.Calendar;
+
 import fr.miage.facebook.BusinessEntity;
 
 /**

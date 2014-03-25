@@ -44,7 +44,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li><a href="#">Créer un groupe</a></li>
 						<li><a href="#">Créer une page</a></li>
-						<li><a href="./option.html">Paramètres</a></li>
+						<li><a href="./option">Paramètres</a></li>
 						<li class="divider"></li>
 						<li><a href="deconnexion">Déconnexion</a></li>
 					</ul>

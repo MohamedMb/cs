@@ -100,7 +100,7 @@ public class UtilisateurTestService {
 		Connection connexion;
 		List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
 		try {
-			connexion = UtilisateurService.getContext().getInstance().getConnection();
+			connexion = UtilisateurService.getContext().getConnection();
 			Statement stmt = connexion.createStatement();
 			String query = "SELECT id FROM facebook.utilisateur ";
 			ResultSet rs = stmt.executeQuery(query);
@@ -115,7 +115,7 @@ public class UtilisateurTestService {
 				Utilisateur u1, u2;
 				u1 = utilisateurs.get(random.nextInt(utilisateurs.size()));
 				u2 = utilisateurs.get(random2.nextInt(utilisateurs.size()));
-				utilisateurService.ajouter(u1, u2);
+				UtilisateurService.demandeAmis(u1, u2);
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -124,13 +124,33 @@ public class UtilisateurTestService {
 		
 	}
 	
-	/*@Test
-	public void getDemandeAmis(){
-		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setId(1);
-		List<Utilisateur> demandes = UtilisateurService.getDemandeAmis(utilisateur);
-		System.out.println(demandes);
-	}*/
+	@Test
+	public static void generateStatuts(){
+		Connection connexion;
+		List<Utilisateur> utilisateurs = new ArrayList<Utilisateur>();
+		try {
+			connexion = UtilisateurService.getContext().getConnection();
+			Statement stmt = connexion.createStatement();
+			String query = "SELECT id FROM facebook.utilisateur ";
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()){
+				Utilisateur utilisateur = new Utilisateur();
+				utilisateur.setId(rs.getInt("ID"));
+				utilisateurs.add(utilisateur);
+			}
+			for(int i = 0; i < 5000; i++){
+				Random random = new Random();
+				Random random2 = new Random();
+				Utilisateur u1;
+				u1 = utilisateurs.get(random.nextInt(utilisateurs.size()));
+				
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	
 }

@@ -65,13 +65,13 @@ public class Client{
 		this("http://localhost:8080/cs/connexion");
 	}
 	
-	/**
-	 * Demande la page sans l'obligation de se connecter
-	 */
-	public void request(){
-		this.method.setRequestHeader(header);
-	}
-	
+//	/**
+//	 * Demande la page sans l'obligation de se connecter
+//	 */
+//	public void request(){
+//		this.method.setRequestHeader(header);
+//	}
+//	
 	
 	/***
 	 * Connecter dynamiquement à la page index

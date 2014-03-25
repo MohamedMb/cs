@@ -1,31 +1,20 @@
 <!DOCTYPE html>
 
 <html>
-<meta charset="UTF-8">
   <head>
     <title>Projet Client/Serveur - Facebook</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8"/>
     <!-- Bootstrap -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="bootstrap/css/style.css" rel="stylesheet">
+    <link href="bootstrapAdmin/css/bootstrap.min.css" rel="stylesheet">
+	<link href="bootstrapAdmin/css/style.css" rel="stylesheet">
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery.js"></script>
 	
+	<script src="bootstrapAdmin/js/bootstrap.js"></script>
+	
 	<script src="justGage/resources/js/raphael.2.1.0.min.js"></script>
 	<script src="justGage/resources/js/justgage.1.0.1.min.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	
-	<!-- wysiwyg bootstrap 3 -->
-	<link rel="stylesheet" type="text/css" href="bootstrap3-wysihtml5-master/src/bootstrap-wysihtml5.css" />
-	<link rel="stylesheet" type="text/css" href="bootstrap3-wysihtml5-master/lib/css/bootstrap3-wysiwyg5-color.css" />
-	<script src="bootstrap3-wysihtml5-master/lib/js/wysihtml5-0.3.0.js" type="text/javascript"></script>
-	<script src="bootstrap3-wysihtml5-master/lib/js/jquery-1.7.2.min.js" type="text/javascript"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="bootstrap3-wysihtml5-master/src/bootstrap3-wysihtml5.js" type="text/javascript"></script>
-	<script src="bootstrap3-wysihtml5-master/src/locales/bootstrap-wysihtml5.fr-FR.js" type="text/javascript"></script>
-	
-	
-	
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>	
 	
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -55,8 +44,8 @@
 			<div class="pill-pane">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="active"><a href="#vitesse" data-toggle="pill">Vitesse</a></li>
-					<li><a href="#div_bd" data-toggle="pill">Base de données</a></li>
-					<li><a href="#chart_div" data-toggle="pill">Nombre de connectés</a></li>
+					<li><a href="#div_bd" data-toggle="pill">Base de donn�es</a></li>
+					<li><a href="#chart_div" data-toggle="pill">Nombre de connect�s</a></li>
 				</ul>
 			</div>
 		</div>
@@ -77,9 +66,7 @@
 			<!--<div id="essai" class="col-md-10 tab-pane"> coucou </div>-->
 		</div>
 	</div>
-</body>
-
-	<script>	
+	<script type="text/javascript" language="javascript">	
 	var g1, g2;
 
   window.onload = function(){
@@ -167,7 +154,7 @@
 					height: 400
 				}
 	  );
-	chart.draw(data, options);
+	//chart.draw(data, options);
   } //Création graph BD
 	
 	
@@ -190,8 +177,11 @@
 	draw(data, {curveType: "function",
 			  width: 1000, height: 400}
 	  );
-	chart.draw(data, options);
+	//chart.draw(data, options);
   } //Création du nombre de visiteurs	
 
 	</script>
+	
+</body>
+
 </html>

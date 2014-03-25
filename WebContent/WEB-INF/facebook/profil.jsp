@@ -69,8 +69,10 @@
                     </a>
                 </div>
                 <div style="position: absolute; "><!-- Faire le test, si déja ami ou si ajout  -->
-                    <button type="button" class="btn btn-primary" style="z-index: 999;margin-left:94%; margin-top:-90px; background-color:#3B5998; border:2px solid white;"><span class="glyphicon glyphicon-plus"></span>
+                    <button type="button" class="btn btn-primary" style="z-index: 999;margin-left:93.7%; margin-top:-90px; background-color:#3B5998; border:2px solid white;"><span class="glyphicon glyphicon-plus"></span>
                     Ajouter</button>
+                    <!--<button type="button" class="btn btn-success" style="z-index: 999;margin-left:95%; margin-top:-90px; background-color:#3B5998; border:2px solid white;"><span class="glyphicon glyphicon-ok"></span>
+                    Ami</button>-->
                 </div>
             </div>
         </div>
@@ -196,18 +198,18 @@
                                 </div>
 
                                 <div id="links">
-                                    <a href="images/banana.jpg" title="Banana" data-gallery> <img
-                                            src="bootstrap/img/gallery/image1.jpg" alt="Banana">
-                                    </a> <a href="images/apple.jpg" title="Apple" data-gallery> <img
-                                            src="bootstrap/img/gallery/image2.jpg" alt="Apple">
-                                    </a> <a href="images/orange.jpg" title="Orange" data-gallery> <img
-                                            src="bootstrap/img/gallery/image3.jpg" alt="Orange">
-                                    </a> <a href="images/banana.jpg" title="Banana" data-gallery> <img
-                                            src="bootstrap/img/gallery/image4.jpg" alt="Banana">
-                                    </a> <a href="images/apple.jpg" title="Apple" data-gallery> <img
-                                            src="bootstrap/img/gallery/image5.jpg" alt="Apple">
-                                    </a> <a href="images/orange.jpg" title="Orange" data-gallery> <img
-                                            src="bootstrap/img/gallery/image6.jpg" alt="Orange">
+                                    <a href="upload/image1.jpg" title="Banana" data-gallery> <img
+                                            src="upload/image1.jpg" alt="Banana">
+                                    </a> <a href="/upload/image2.jpg" title="Apple" data-gallery> <img
+                                            src="/upload/image2.jpg" alt="Apple">
+                                    </a> <a href="/upload/image3.jpg" title="Orange" data-gallery> <img
+                                            src="/upload/image3.jpg" alt="Orange">
+                                    </a> <a href="/upload/image4.jpg" title="Banana" data-gallery> <img
+                                            src="/upload/image4.jpg" alt="Banana">
+                                    </a> <a href="/upload/image5.jpg" title="Apple" data-gallery> <img
+                                            src="/upload/image5.jpg" alt="Apple">
+                                    </a> <a href="/upload/image6.jpg" title="Orange" data-gallery> <img
+                                            src="/upload/image6.jpg" alt="Orange">
                                     </a> <a href="images/banana.jpg" title="Banana" data-gallery> <img
                                             src="bootstrap/img/gallery/image1.jpg" alt="Banana">
                                     </a> <a href="images/apple.jpg" title="Apple" data-gallery> <img

@@ -52,6 +52,13 @@
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<!-- Admin -->
+	<servlet>
+	    <servlet-name>AdminServlet</servlet-name>
+	    <servlet-class>servlets.AdminServlet</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<!-- Index -->
 	<servlet-mapping>
 	    <servlet-name>IndexServlet</servlet-name>
@@ -80,5 +87,11 @@
 	<servlet-mapping>
 	    <servlet-name>OptionServlet</servlet-name>
 	    <url-pattern>/option</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Admin -->
+	<servlet-mapping>
+	    <servlet-name>AdminServlet</servlet-name>
+	    <url-pattern>/admin</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -44,8 +44,8 @@
 			<div class="pill-pane">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="active"><a href="#vitesse" data-toggle="pill">Vitesse</a></li>
-					<li><a href="#div_bd" data-toggle="pill">Base de données</a></li>
-					<li><a href="#chart_div" data-toggle="pill">Nombre de connectés</a></li>
+					<li><a href="#div_bd" data-toggle="pill">Base de donnÃ©es</a></li>
+					<li><a href="#chart_div" data-toggle="pill">Nombre de connectÃ©s</a></li>
 				</ul>
 			</div>
 		</div>
@@ -64,10 +64,17 @@
 			<div id="div_bd" style="width: 100%; height: 100%;" class="tab-pane"></div>
 			<div id="chart_div" style="width: 100%; height: 100%;" class="tab-pane"></div>
 			<!--<div id="essai" class="col-md-10 tab-pane"> coucou </div>-->
+			<button id="btnTest">Start</button>
 		</div>
 	</div>
-	<script type="text/javascript" language="javascript">	
-	var g1, g2;
+<script type="text/javascript" language="javascript">	
+	//var g1, g2;
+$(document).ready(function() {
+	$(document).on('click', '#btnTest', function() {
+		drawChart();
+		drawChartBD();		
+	});
+});
 
   window.onload = function(){
 
@@ -78,7 +85,9 @@
       min: 0,
       max: 100,
       title: "CPU",
-      label: "Load",
+      label: "% Load",
+      startAnimationType:'bounce',
+      startAnimationTime : 1500,
 	  levelColors: ['#CE1B21', '#D0532A', '#FFC414', '#85A137']
     });
 
@@ -89,7 +98,9 @@
 	  min: 0,
       max: 100,
       title: "Memory",
-      label: "Used",
+      label: "% Used",
+      startAnimationType:'bounce',
+      startAnimationTime : 1500,
 	  levelColors: ['#CE1B21', '#D0532A', '#FFC414', '#85A137']
     });
 	
@@ -100,10 +111,19 @@
       min: 0,
       max: 100,
       title: "Speed",
-      label: "Fast",
+      label: "% Fast",
+      startAnimationType:'bounce',
+      startAnimationTime : 1500,
 	  levelColors: ['#CE1B21', '#D0532A', '#FFC414', '#85A137']
     });
 
+	setInterval(function() {
+    g1.refresh(getRandomInt(0, 100));
+   g2.refresh(getRandomInt(0, 100));          
+   g3.refresh(getRandomInt(0, 100));       
+}, 2500);
+	
+	
     /*setInterval(function() {
         $.get('ajax/cpu.php', function (newValue) { g1.refresh(newValue); });
         $.get('ajax/mem.php', function (newValue) { g2.refresh(newValue); });          

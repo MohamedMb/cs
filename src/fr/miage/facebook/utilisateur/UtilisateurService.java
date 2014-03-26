@@ -145,6 +145,7 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	public static void synchronization(Utilisateur utilisateur){
 		UtilisateurService.getDemandeAmis(utilisateur);
 		UtilisateurService.getFriends(utilisateur);
+		StatutService.getStatuts(utilisateur);
 	}
 	
 	/**

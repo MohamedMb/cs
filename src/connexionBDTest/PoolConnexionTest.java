@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.junit.Test;
 import fr.miage.facebook.pool.homemade.CustomConnectionPoolImpl;
 
@@ -24,19 +24,19 @@ import fr.miage.facebook.pool.homemade.CustomConnectionPoolImpl;
 public class PoolConnexionTest {
 
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
-	  private static final String URL = "jdbc:mysql://127.0.0.1:3306/facebook";
+	private static final String URL = "jdbc:mysql://127.0.0.1:3306/facebook";
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "";
 	//3020 limite ordinateur mohamed, à changer !!!!!!!!!!!!!!!
-	private static final int MAX_CONNECTIONS = 1000; //limite qu'il ne dépasse pas !
-	private static final int INITIAL_CONNECTIONS = 1000; //créé les connexion sur place
+	private static final int MAX_CONNECTIONS = 2000; //limite qu'il ne dépasse pas !
+	private static final int INITIAL_CONNECTIONS = 2000; //créé les connexion sur place
 	private static final boolean WAIT_IF_BUSY = true;
 	
 	private ArrayList<HashMap<Integer, Long>> dureesConnexions = null;
 	
 	private static final boolean UTILISER_THREAD = false;
 
-	private Logger logger = Logger.getLogger(getClass());
+	//private Logger logger = Logger.getLogger(getClass());
 
 
 	@Test
@@ -80,12 +80,12 @@ public class PoolConnexionTest {
 				nbConnexionPool++;
 				//long dureeEtape = end-begin;
 				//dureesConnexions.add(new HashMap<Integer, Long>(Integer.valueOf(i), Long.valueOf(dureeEtape)));
-				System.out.println("Pool avec : " + i + " connexions a durée : " + (end - begin));
+				System.out.println("Pool avec " + i + " connexions a durée " + (end - begin) + " ms");
 				
 			}
 			endGlobal = System.currentTimeMillis();
 			pool = null;
-			System.out.println("Temps total des opérations d'exécution des " + nbConnexionPool + " pools a duré " + (endGlobal - beginGlobal));
+			System.out.println("Temps total des opérations d'exécution des " + nbConnexionPool + " pools a duré " + (endGlobal - beginGlobal) + " ms");
 		}catch(SQLException e){
 			e.printStackTrace();
 		}

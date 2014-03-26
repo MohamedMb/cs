@@ -24,7 +24,7 @@ public class MySQLConnexionTest {
 		int palier = 200;
 		long begin;
 		long end = 0;
-		int nbConnexion = 0;
+		int operations = 0;
 		
 		Class.forName(DRIVER);
 		
@@ -36,27 +36,27 @@ public class MySQLConnexionTest {
 			for(int i = 0 ; i < NB_CONNEXION ; i++) {
 				if(i == connexionInitial) {
 					end = System.currentTimeMillis();
-					System.out.println(connexionInitial + " connexions a durée : " + (end - begin));
+					System.out.println(connexionInitial + " connexions a durée " + (end - begin) + " ms");
 					connexionInitial += palier;
 					i = 0;
-					nbConnexion++;
+					operations++;
 					begin = System.currentTimeMillis();
 				}
 				Thread threadConnexion = new Thread(new ConnexionThreadTest());
 				threadConnexion.run();
 			}
 			end = System.currentTimeMillis();
-			System.out.println(connexionInitial + " connexions a durée : " + (end - begin));
+			System.out.println(connexionInitial + " connexions a durée " + (end - begin) + " ms");
 		}
 		else {
 			begin = System.currentTimeMillis();
 			for(int i = 0 ; i < NB_CONNEXION ; i++) {
 				if(i == connexionInitial) {
 					end = System.currentTimeMillis();
-					System.out.println(connexionInitial + " connexions a durée : " + (end - begin));
+					System.out.println(connexionInitial + " connexions a durée " + (end - begin)  + " ms");
 					connexionInitial += palier;
 					i = 0;
-					nbConnexion++;
+					operations++;
 					begin = System.currentTimeMillis();
 				}
 				connexion = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -66,11 +66,11 @@ public class MySQLConnexionTest {
 				connexion.close();
 			}
 			end = System.currentTimeMillis();
-			System.out.println(connexionInitial + " connexions a durée : " + (end - begin));
+			System.out.println(connexionInitial + " connexions a durée " + (end - begin) + " ms");
 		}
 		
 		endGlobal = System.currentTimeMillis();
-		System.out.println("Temps total des opérations d'exécution des " + nbConnexion + " opérations a duré " + (endGlobal - beginGlobal));
+		System.out.println("Temps total des opérations d'exécution des " + operations + " opérations a duré " + (endGlobal - beginGlobal)  + " ms");
 		
 		
 	}

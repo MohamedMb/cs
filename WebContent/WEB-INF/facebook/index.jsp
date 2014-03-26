@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <%@page import="fr.miage.facebook.utilisateur.UtilisateurService"%>
+<%@ page import="java.util.List" %>
+<%@ page import="fr.miage.facebook.utilisateur.Statut" %>
 <html>
 	<!-- Header -->
 	<%@ include file="header.jsp" %>
  	<body>
-		<jsp:useBean id="currentUser" class="fr.miage.facebook.utilisateur.Utilisateur" scope="session"/>
+		<jsp:useBean id="currentUser" class="fr.miage.facebook.utilisateur.Utilisateur" scope="session" />
 		<%
 			currentUser = (fr.miage.facebook.utilisateur.Utilisateur)request.getAttribute(UtilisateurService.currentUser);
 		%>
@@ -34,24 +36,35 @@
 										<input type="submit" class="btn btn-primary pull-right" />
 									</form>
 									<hr />
-									<div class="media">
-	                                    <a class="pull-left" href="#">
-	                                    	<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="64x64" style="width: 64px; height: 64px;">
-	                                    </a>
-	                                    <div class="media-body">
-	                                        <h4 class="media-heading">Prenom NOM</h4>
-	                                        <p>
-	                                        	Cras sit amet nibh libero, in gravida nulla. Nulla vel
-	                                            metus scelerisque ante sollicitudin commodo. Cras purus odio,
-	                                            vestibulum in vulputate at, tempus viverra turpis. Fusce
-	                                            condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-	                                            congue felis in faucibus.
-	                                        </p>
-	                                        <a class="btn btn-link" style="color: green;">J'aime</a>
-	                                        <a class="btn btn-link" style="color: red;">J'aime pas</a>
-	                                        <a class="btn btn-link btn_comment">Commenter</a>
-	                                    </div>
-	                                </div>
+									<% 
+										if (request.getAttribute("statuts") != null && ((List<Statut>)request.getAttribute("statuts")).size() > 0) {
+											List<Statut> statuts = (List<Statut>)request.getAttribute("statuts");
+											for (Statut statut : statuts) {
+									%>
+												<div class="media">
+													<a class="pull-left" href="#"> 
+														<img class="media-object img-thumbnail" src="bootstrap/img/user.png"
+															 alt="64x64" style="width: 64px; height: 64px;">
+													</a>
+													<div class="media-body">
+														<h4 class="media-heading"><%= statut.getUtilisateur().getPrenom() %> <%= statut.getUtilisateur().getNom() %></h4>
+														<p><%= statut.getLibelle() %></p>
+														<a class="btn btn-link" style="color: green;">J'aime</a> <a
+															class="btn btn-link" style="color: red;">J'aime pas</a> <a
+															class="btn btn-link btn_comment">Commenter</a>
+													</div>
+												</div>
+												<hr />
+									<%
+											}
+										}else{
+									%>
+											<div class="alert alert-info">
+												<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun statuts pour le moment.
+											</div>
+									<%
+										}
+									%>
 								</div>
 								
 								<!-- Formulaire d'upload de photos -->
@@ -125,6 +138,8 @@
 	<script>	
 		$(document).ready(function() {
 			
+			$('input[type=text], textarea').val('');
+			
 			//--- upload de photos ---
 			$(function () {
 			    $('#fileupload').fileupload({
@@ -147,7 +162,7 @@
 			    });
 			});
 			
-			//--- validation du formulaire d'ajout d'un statut ---
+			//--- ajout d'un statut ---
 			$('#formAjoutStatut').on('submit', function(e) {
 				e.preventDefault();
 				// test si la textarea n'est pas vide
@@ -159,6 +174,9 @@
 						url: $(this).attr('action'),
 						data: {
 							statut: $(this).find('textarea').val()
+						},
+						success: function() {
+							$('this textarea').val('');
 						}
 					});
 				}else{
@@ -224,7 +242,7 @@
 				
 				$('[data-toggle=popover]').on('click', function() {
 					console.log('test');
-				});				
+				});
 				
 			});
 		});

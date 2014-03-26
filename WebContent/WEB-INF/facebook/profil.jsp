@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<%@page import="fr.miage.facebook.utilisateur.UtilisateurService"%>
+<%@ page import="fr.miage.facebook.utilisateur.UtilisateurService" %>
+<%@ page import="java.util.List" %>
+<%@ page import="fr.miage.facebook.utilisateur.Statut" %>
+<%@ page import="fr.miage.facebook.utilisateur.Photo" %>
+<%@ page import="fr.miage.facebook.utilisateur.Utilisateur" %>
 <html>
 <!-- Header -->
 <%@ include file="header.jsp"%>
 <script>
-	document.getElementById('links').onclick = function(event) {
+		$('#links').onclick = function(event) {
 		event = event || window.event;
 		var target = event.target || event.srcElement, link = target.src ? target.parentNode
 				: target, options = {
@@ -59,11 +63,9 @@
 </script>
 <body>
 	<!-- MENU HAUT -->
-	<jsp:useBean id="currentUser"
-		class="fr.miage.facebook.utilisateur.Utilisateur" scope="session" />
+	<jsp:useBean id="currentUser" class="fr.miage.facebook.utilisateur.Utilisateur" scope="session" />
 	<%
-		currentUser = (fr.miage.facebook.utilisateur.Utilisateur) request
-				.getAttribute(UtilisateurService.currentUser);
+		currentUser = (fr.miage.facebook.utilisateur.Utilisateur) request.getAttribute(UtilisateurService.currentUser);
 	%>
 	<!-- Navbar -->
 	<%@ include file="navbar.jsp"%>
@@ -99,8 +101,16 @@
 			<ul class="nav nav-pills nav-justified">
 				<li class="active"><a href="#statut" data-toggle="pill">Statut</a></li>
 				<li id="test"><a href="#photo" data-toggle="pill">Photo</a></li>
-				<li><a href="#aff_amis" data-toggle="pill">Amis<span
-						class="badge">42</span></a></li>
+				<li>
+					<a href="#aff_amis" data-toggle="pill">Amis
+						<span class="badge">
+							<% 
+								if (request.getAttribute("amis") != null)
+									out.print(((List<Utilisateur>)request.getAttribute("amis")).size());
+							%>
+						</span>
+					</a>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -114,66 +124,39 @@
 				<div class="panel-body">
 					<div class="tab-content">
 						<!-- Affichage tab status + ecriture statut -->
-						<div id="statut" class="input-group tab-pane active"
-							style="padding-top: 5px;">
-							<textarea class="form-control" rows="1"
-								placeholder="Exprime toi!" cols="500"></textarea>
+						<div id="statut" class="input-group tab-pane active" style="padding-top: 5px;">
+							<textarea class="form-control" rows="1" placeholder="Exprime toi!" cols="500"></textarea>
 							<hr>
-							<div class="media">
-								<a class="pull-left" href="#"> <img
-									class="media-object img-thumbnail" src="bootstrap/img/user.png"
-									alt="64x64" style="width: 64px; height: 64px;">
-								</a>
-								<div class="media-body">
-									<h4 class="media-heading">Prenom NOM</h4>
-									<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel
-										metus scelerisque ante sollicitudin commodo. Cras purus odio,
-										vestibulum in vulputate at, tempus viverra turpis. Fusce
-										condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-										congue felis in faucibus.</p>
-									<a class="btn btn-link" style="color: green;">J'aime</a> <a
-										class="btn btn-link" style="color: red;">J'aime pas</a> <a
-										class="btn btn-link btn_comment">Commenter</a>
-								</div>
-							</div>
-							<hr />
-							<div class="media">
-								<a class="pull-left" href="#"> <img
-									class="media-object img-thumbnail" src="bootstrap/img/user.png"
-									alt="64x64" style="width: 64px; height: 64px;">
-								</a>
-								<div class="media-body">
-									<h4 class="media-heading">Prenom NOM</h4>
-									<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel
-										metus scelerisque ante sollicitudin commodo. Cras purus odio,
-										vestibulum in vulputate at, tempus viverra turpis. Fusce
-										condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-										congue felis in faucibus.</p>
-									<a class="btn btn-link" style="color: green;">J'aime</a> <a
-										class="btn btn-link" style="color: red;">J'aime pas</a> <a
-										class="btn btn-link btn_comment">Commenter</a>
-									<div></div>
-								</div>
-							</div>
-							<hr />
-							<div class="media">
-								<a class="pull-left" href="#"> <img
-									class="media-object img-thumbnail" src="bootstrap/img/user.png"
-									alt="64x64" style="width: 64px; height: 64px;">
-								</a>
-								<div class="media-body">
-									<h4 class="media-heading">Prenom NOM</h4>
-									<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel
-										metus scelerisque ante sollicitudin commodo. Cras purus odio,
-										vestibulum in vulputate at, tempus viverra turpis. Fusce
-										condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-										congue felis in faucibus.</p>
-									<a class="btn btn-link" style="color: green;">J'aime</a> <a
-										class="btn btn-link" style="color: red;">J'aime pas</a> <a
-										class="btn btn-link btn_comment">Commenter</a>
-									<div></div>
-								</div>
-							</div>
+							<% 
+								if (request.getAttribute("statuts") != null && ((List<Statut>)request.getAttribute("statuts")).size() > 0) {
+									List<Statut> statuts = (List<Statut>)request.getAttribute("statuts");
+									for (Statut statut : statuts) {
+							%>
+										<div class="media">
+											<a class="pull-left" href="#"> 
+												<img class="media-object img-thumbnail" src="bootstrap/img/user.png"
+													 alt="64x64" style="width: 64px; height: 64px;">
+											</a>
+											<div class="media-body">
+												<h4 class="media-heading"><%= statut.getUtilisateur().getPrenom() %> <%= statut.getUtilisateur().getNom() %></h4>
+												<p><%= statut.getLibelle() %></p>
+												<a class="btn btn-link" style="color: green;">J'aime</a> <a
+													class="btn btn-link" style="color: red;">J'aime pas</a> <a
+													class="btn btn-link btn_comment">Commenter</a>
+											</div>
+										</div>
+										<hr />
+							<%
+									}
+								}else{
+							%>
+									<div class="alert alert-info">
+										<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun statuts pour le moment.
+									</div>
+							<%
+								}
+							%>
+							
 						</div>
 						<!-- Affichage tab photos -->
 						<div id="photo" class="input-group tab-pane"
@@ -217,150 +200,77 @@
 								<ol class="indicator"></ol>
 							</div>
 
+							<!-- gallerie de photos -->
 							<div id="links" class="container-fluid">
 								<div class="row-fluid col-md-12">
-									<div class="col-md-3">
-										<a href="upload/image1.jpg" title="Banana" data-gallery> 
-											<img src="upload/image1.jpg" alt="Banana" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image2.jpg" title="Apple" data-gallery>
-											<img src="upload/image2.jpg" alt="Apple" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image3.jpg" title="Orange" data-gallery>
-											<img src="upload/image3.jpg" alt="Orange" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image4.jpg" title="Banana" data-gallery>
-											<img src="upload/image4.jpg" alt="Banana" width="100%">
-										</a>
-									</div>
+								<% 
+									if (request.getAttribute("photos") != null && ((List<Photo>)request.getAttribute("photos")).size() > 0) {
+										List<Photo> photos = (List<Photo>)request.getAttribute("photos");
+										int i = 0;
+										for (Photo photo : photos) {
+											
+								%>
+											<div class="col-md-3">
+												<a href="<%= photo.getLien() %>" title="<%= photo.getLien() %>" data-gallery> 
+													<img src="<%= photo.getLien() %>" alt="<%= photo.getLien() %>" width="100%">
+												</a>
+											</div>
+								<%
+											i++;
+											if (i % 4 == 0 ) {
+												out.println("</div>");
+												out.println("<div class=\"row-fluid col-md-12\">");
+											}
+										}
+									}else{
+								%>
+										<div class="alert alert-info">
+											<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun ami pour le moment.
+										</div>
+								<%
+									}
+								%>
 								</div>
-								<div class="row-fluid col-md-12">
-									<div class="col-md-3">
-										<a href="upload/image1.jpg" title="Banana" data-gallery> 
-											<img src="upload/image1.jpg" alt="Banana" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image2.jpg" title="Apple" data-gallery>
-											<img src="upload/image2.jpg" alt="Apple" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image3.jpg" title="Orange" data-gallery>
-											<img src="upload/image3.jpg" alt="Orange" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image4.jpg" title="Banana" data-gallery>
-											<img src="upload/image4.jpg" alt="Banana" width="100%">
-										</a>
-									</div>
-								</div>
-								<div class="row-fluid col-md-12">
-									<div class="col-md-3">
-										<a href="upload/image1.jpg" title="Banana" data-gallery> 
-											<img src="upload/image1.jpg" alt="Banana" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image2.jpg" title="Apple" data-gallery>
-											<img src="upload/image2.jpg" alt="Apple" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image3.jpg" title="Orange" data-gallery>
-											<img src="upload/image3.jpg" alt="Orange" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image4.jpg" title="Banana" data-gallery>
-											<img src="upload/image4.jpg" alt="Banana" width="100%">
-										</a>
-									</div>
-								</div>
-								<div class="row-fluid col-md-12">
-									<div class="col-md-3">
-										<a href="upload/image1.jpg" title="Banana" data-gallery> 
-											<img src="upload/image1.jpg" alt="Banana" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image2.jpg" title="Apple" data-gallery>
-											<img src="upload/image2.jpg" alt="Apple" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image3.jpg" title="Orange" data-gallery>
-											<img src="upload/image3.jpg" alt="Orange" width="100%">
-										</a>
-									</div>
-									<div class="col-md-3">
-										<a href="upload/image4.jpg" title="Banana" data-gallery>
-											<img src="upload/image4.jpg" alt="Banana" width="100%">
-										</a>
-									</div>
-								</div>
+								
+								
 							</div>
-									
-									
-<!-- 								 <a href="upload/image2.jpg" title="Apple" data-gallery> <img -->
-<!-- 									src="upload/image2.jpg" alt="Apple"> -->
-<!-- 								</a> <a href="upload/image3.jpg" title="Orange" data-gallery> <img -->
-<!-- 									src="upload/image3.jpg" alt="Orange"> -->
-<!-- 								</a> <a href="upload/image4.jpg" title="Banana" data-gallery> <img -->
-<!-- 									src="upload/image4.jpg" alt="Banana"> -->
-<!-- 								</a> <a href="upload/image5.jpg" title="Apple" data-gallery> <img -->
-<!-- 									src="upload/image5.jpg" alt="Apple"> -->
-<!-- 								</a> <a href="upload/image6.jpg" title="Orange" data-gallery> <img -->
-<!-- 									src="upload/image6.jpg" alt="Orange"> -->
-<!-- 								</a> <a href="upload/image1.jpg" title="Banana" data-gallery> <img -->
-<!-- 									src="upload/image1.jpg" alt="Banana"> -->
-<!-- 								</a> <a href="upload/image2.jpg" title="Apple" data-gallery> <img -->
-<!-- 									src="upload/image2.jpg" alt="Apple"> -->
-<!-- 								</a> <a href="upload/image3.jpg" title="Orange" data-gallery> <img -->
-<!-- 									src="upload/image3.jpg" alt="Orange"> -->
-<!-- 								</a> <a href="upload/image4.jpg" title="Banana" data-gallery> <img -->
-<!-- 									src="upload/image4.jpg" alt="Banana"> -->
-<!-- 								</a> <a href="upload/image5.jpg" title="Apple" data-gallery> <img -->
-<!-- 									src="upload/image5.jpg" alt="Apple"> -->
-<!-- 								</a> <a href="upload/image6.jpg" title="Orange" data-gallery> <img -->
-<!-- 									src="upload/image6.jpg" alt="Orange"> -->
-<!-- 								</div> -->
-							
 						</div>
 
 						<!-- Affichage tab Amis -->
-						<div id="aff_amis" class="input-group tab-pane"
-							style="padding-top: 5px;">
+						<div id="aff_amis" class="input-group tab-pane" style="padding-top: 5px;">
 							<ul class="list-inline">
-								<li style="margin-right: 30px;"><div class="media">
-										<a class="pull-left" href="#"> <img
-											class="media-object img-thumbnail"
-											src="bootstrap/img/user.png" alt="64x64"
-											style="width: 64px; height: 64px;">
-										</a>
-										<div class="media-body pull-right">
-											<h4 class="media-heading" style="margin-top: 25px;">Ami
-												1</h4>
+								<%
+									if (request.getAttribute("amis") != null && ((List<Utilisateur>)request.getAttribute("amis")).size() > 0) {
+										List<Utilisateur> amis = (List<Utilisateur>)request.getAttribute("amis");
+										int i = 0;
+										for (Utilisateur ami : amis) {
+												
+								%>
+											<li style="margin-right: 15px; margin-left: 15px;" class="span4">
+												<div class="media">
+													<a class="pull-left" href="#">
+														<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="64x64" style="width: 64px; height: 64px;" />
+													</a>
+													<div class="media-body pull-right">
+														<h4 class="media-heading" style="margin-top: 25px;"><%= ami.getPrenom() %> <%= ami.getNom() %></h4>
+													</div>
+												</div>
+											</li>
+								<%
+											i++;
+											if (i % 3 == 0 ) {
+												out.println("</ul>");
+												out.println("<ul class=\"list-inline\">");
+											}
+										}
+									}else{
+								%>
+										<div class="alert alert-info">
+											<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun ami pour le moment.
 										</div>
-									</div></li>
-								<li style="margin-right: 30px;"><div class="media">
-										<a class="pull-left" href="#"> <img
-											class="media-object img-thumbnail"
-											src="bootstrap/img/user.png" alt="64x64"
-											style="width: 64px; height: 64px;">
-										</a>
-										<div class="media-body pull-right">
-											<h4 class="media-heading" style="margin-top: 25px;">Ami
-												2</h4>
-										</div>
-									</div></li>
+								<%			
+									}
+								%>
 							</ul>
 						</div>
 					</div>

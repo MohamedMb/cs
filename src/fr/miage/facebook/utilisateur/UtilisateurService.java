@@ -4,6 +4,7 @@
 package fr.miage.facebook.utilisateur;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 //import connexion.MySQLAccess;
 
+
 import fr.miage.facebook.BusinessEntityService;
 
 /**
@@ -26,7 +28,6 @@ import fr.miage.facebook.BusinessEntityService;
  */
 public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	public static final String currentUser = "currentUser";
-	
 	
 	/**
 	 * Regroupement des utilisateurs de l'application
@@ -155,15 +156,17 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	public static List<Utilisateur> getFriends(Utilisateur utilisateur){
 		List<Utilisateur> amis = new ArrayList<Utilisateur>();
 		try {
-			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
 			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
-			//TODO Créer la query pour récupérer la liste d'amis
-			String query ="";
+			
+			String query = "SELECT * FROM utilisateur WHERE id IN ("
+							 + "SELECT a.id_ami FROM utilisateur u "
+							 			+ "JOIN ami a ON u.id = a.id_utilisateur "
+							 + "WHERE a.id_utilisateur = " + utilisateur.getId() + ")";
+			
 			ResultSet rs = stmt.executeQuery(query);
-			if (rs.next()){
+			while (rs.next()) {
 				amis.add(UtilisateurService.load(rs));
-				
 			}
 			rs.close();
 		} catch (Exception e) {
@@ -179,11 +182,11 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
 			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
-			String query ="SELECT ami.id_utilisateur as id, utilisateur.nom, utilisateur.prenom," +
-					" utilisateur.mail, ami.is_validation_demande, ami.date_demande, ami.date_reponse" +
-					" FROM facebook.ami " +
-					"INNER JOIN facebook.utilisateur on ami.id_utilisateur = utilisateur.id" +
-					" WHERE id_ami = " + utilisateur.getId() + " AND date_reponse is null";
+			String query = "SELECT ami.id_utilisateur as id, utilisateur.nom, utilisateur.prenom," +
+						   " utilisateur.mail, ami.is_validation_demande, ami.date_demande, ami.date_reponse" +
+						   " FROM facebook.ami " +
+						   "INNER JOIN facebook.utilisateur on ami.id_utilisateur = utilisateur.id" +
+						   " WHERE id_ami = " + utilisateur.getId() + " AND date_reponse is null";
 			ResultSet rs = stmt.executeQuery(query);
 			while (rs.next()){
 				amis.add(UtilisateurService.load(rs));
@@ -239,14 +242,53 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 		try {
 			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
-			String query ="INSERT INTO statut ('id_utilisateur', 'libelle') VALUES ('" + statut.getUtilisateur().getId() + "', '" + statut.getLibelle() + "')";
-			ResultSet rs = stmt.executeQuery(query);
-			rs.close();
+			
+			String query = "INSERT INTO statut (id_utilisateur, libelle) VALUES ('?', '?')";
+			PreparedStatement preparedStatement = connexion.prepareStatement(query);
+			preparedStatement.setInt(1, statut.getUtilisateur().getId());
+			preparedStatement.setString(2, statut.getLibelle());
+			
+			stmt.executeUpdate(query);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
-
+	
+	/**
+	 * Retourne la liste des statuts de l'utilisateur passé en paramètre.
+	 * @param utilisateur
+	 * @param is_statuts_perso Vrai si l'on veut récupérer seulement les statuts de l'utilisateur et non de ses amis.
+	 * @return
+	 */
+	public static List<Statut> getStatuts (Utilisateur utilisateur, boolean is_statuts_perso){
+		List<Statut> statuts = new ArrayList<Statut>();
+		try {
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
+			Statement stmt = connexion.createStatement();
+			
+			String query = "SELECT * FROM statut s "
+						 		  + "JOIN utilisateur u ON u.id = s.id_utilisateur WHERE s.id_utilisateur ";
+			if (is_statuts_perso)
+				query += "= " + utilisateur.getId();
+			else
+				query += "IN (SELECT a.id_ami "
+						   + "FROM utilisateur u "
+				 		   + "JOIN ami a ON u.id = a.id_utilisateur "
+				 		   + "WHERE a.id_utilisateur = " + utilisateur.getId()
+				 		   + " UNION SELECT " + utilisateur.getId() + ")";
+			
+			ResultSet rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				Utilisateur user = UtilisateurService.load(rs);
+				statuts.add(new Statut(user, rs.getString("libelle")));
+			}
+			rs.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return statuts;
+	}
 }

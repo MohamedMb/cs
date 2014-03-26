@@ -11,10 +11,11 @@ import fr.miage.facebook.BusinessEntity;
  * @author Stephane
  * @version 0.1
  */
-public class Statut extends BusinessEntity {
+public class Statut extends BusinessEntity implements Comparable<Statut>{
 
 	private Utilisateur utilisateur;			// créateur du statut
 	private String libelle;						// contenu du statut
+	private Calendar datePost;
 	
 	/**
 	 * Constructeur.
@@ -26,6 +27,9 @@ public class Statut extends BusinessEntity {
 		this.libelle = libelle;
 	}
 
+	public Statut() {
+	}
+
 	//--- getters ---
 	public Utilisateur getUtilisateur() {return utilisateur;}
 	public String getLibelle() {return libelle;}
@@ -33,4 +37,17 @@ public class Statut extends BusinessEntity {
 	//--- setters
 	public void setUtilisateur(Utilisateur utilisateur) {this.utilisateur = utilisateur;}
 	public void setLibelle(String libelle) {this.libelle = libelle;}
+
+	public Calendar getDatePost() {
+		return datePost;
+	}
+
+	public void setDatePost(Calendar datePost) {
+		this.datePost = datePost;
+	}
+
+	@Override
+	public int compareTo(Statut statut) {
+		return -this.datePost.compareTo(statut.getDatePost());
+	}
 }

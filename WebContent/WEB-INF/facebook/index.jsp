@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
 <%@page import="fr.miage.facebook.utilisateur.Statut"%>
 <%@page import="fr.miage.facebook.utilisateur.UtilisateurService"%>
 <%@ page import="java.util.List" %>
 <%@ page import="fr.miage.facebook.utilisateur.Statut" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<!-- Header -->
 	<%@ include file="header.jsp" %>
@@ -61,7 +63,7 @@
 										}else{
 									%>
 											<div class="alert alert-info">
-												<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun statuts pour le moment.
+												<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun statuts pour le moment. voilà
 											</div>
 									<%
 										}
@@ -105,29 +107,24 @@
 							</div>
 							<div class="divider"></div>
 							<hr />
-							<%
-								if (currentUser.getStatuts() != null) {
-									for (Statut statut : currentUser.getStatuts()) {
-							%>
-										<div class="media">
-											<a class="pull-left" href="#">
-												<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="64x64" style="width:64px; height:64px;">
-											</a>
-											<div class="media-body">
-												<h4 class="media-heading">${currentUser.prenom} ${currentUser.nom}</h4>
-												<p>
-													${statut.libelle}
-												</p>
-												<a class="btn btn-link" style="color:green;">J'aime</a>
-												<a class="btn btn-link" style="color:red;">J'aime pas</a>
-												<a class="btn btn-link btn_comment">Commenter</a>
+										<c:forEach items="${currentUser.statuts}" var="statut">
+											<div class="media">
+												<a class="pull-left" href="#">
+													<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="64x64" style="width:64px; height:64px;">
+												</a>
+												<div class="media-body">
+													<h4 class="media-heading">Posté à : ${statut.datePost.time} par ${currentUser.prenom} ${currentUser.nom}</h4>
+													<p>
+														${statut.libelle}
+													</p>
+													<a class="btn btn-link" style="color:green;">J'aime</a>
+													<a class="btn btn-link" style="color:red;">J'aime pas</a>
+													<a class="btn btn-link btn_comment">Commenter</a>
+												</div>
 											</div>
-										</div>
+										</c:forEach>
+										
 										<hr/>
-							<%
-									}
-								}
-							%>
 						</div>	
 						<div id="application" class="tab-pane"></div>
 					</div>

@@ -3,12 +3,14 @@
  */
 package fr.miage.facebook;
 
+import java.io.Serializable;
+
 /**
  * @author Stephane
  * @version 0.1
  *
  */
-public abstract class BusinessEntity {
+public abstract class BusinessEntity implements Serializable {
 	/**
 	 * Identifiant de l'objet
 	 */

@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -34,9 +35,11 @@ public class IndexServlet extends HttpServlet {
 		Utilisateur utilisateur = (Utilisateur) session.getAttribute(UtilisateurService.currentUser);
 		String url = "";
 		if (utilisateur != null) {
-			// recherche des statuts de l'utilisateur
-			List<Statut> statuts = us.getStatuts(utilisateur, false);
-			req.setAttribute("statuts", statuts);
+			// Synchronisation de l'utilisateur avec les infos en BDD
+			UtilisateurService.synchronization(utilisateur);
+			List<Statut> statuts = new ArrayList<Statut>(utilisateur.getStatuts().size());
+			statuts.addAll(utilisateur.getStatuts());
+			session.setAttribute("statuts", statuts);
 			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/facebook/index.jsp").forward(req, resp);
 		}else

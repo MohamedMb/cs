@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +33,7 @@ public class StatutService extends BusinessEntityService<Utilisateur> {
 		Connection connexion;
 		try {
 			connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
-			Set<Statut> statuts = new TreeSet<Statut>();
+			List<Statut> statuts = new ArrayList<Statut>();
 			Statement stmt = connexion.createStatement();
 			String query ="SELECT * FROM STATUT WHERE ID_UTILISATEUR = " + utilisateur.getId();
 			ResultSet rs = stmt.executeQuery(query);
@@ -39,6 +41,7 @@ public class StatutService extends BusinessEntityService<Utilisateur> {
 				statuts.add(StatutService.load(rs));
 			}
 			rs.close();
+			Collections.sort(statuts);
 			utilisateur.setStatuts(statuts);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,12 +51,13 @@ public class StatutService extends BusinessEntityService<Utilisateur> {
 	}
 	
 	protected static Statut load(ResultSet rs) throws SQLException{
-		Statut utilisateur = new Statut();
-		utilisateur.setId(rs.getInt("id"));
-		utilisateur.setLibelle(rs.getString("libelle"));
+		Statut statut = new Statut();
+		statut.setId(rs.getInt("id"));
+		statut.setLibelle(rs.getString("libelle"));
 		Calendar datePost = Calendar.getInstance();
-		datePost.setTime(rs.getDate("datePost"));
-		return utilisateur;
+		datePost.setTime(rs.getDate("date_post"));
+		statut.setDatePost(datePost);
+		return statut;
 	}
 
 }

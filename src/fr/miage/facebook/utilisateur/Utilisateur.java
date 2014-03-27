@@ -4,6 +4,7 @@
 package fr.miage.facebook.utilisateur;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Set;
 
 import fr.miage.facebook.BusinessEntity;
@@ -25,7 +26,7 @@ public class Utilisateur extends BusinessEntity {
 	private Set<Photo> photos;				// liste des photos sans album
 	private Set<Album> albums;				// liste des albums photos
 	private Set<Utilisateur> demandes;		// liste des demandes d'amis
-	private Set<Statut> statuts;			// liste des statuts d'un utilisateur
+	private List<Statut> statuts;			// liste des statuts d'un utilisateur
 	
 	//--- getters ---
 	public String getNom() {return nom;}
@@ -49,10 +50,10 @@ public class Utilisateur extends BusinessEntity {
 	public void setPhotos(Set<Photo> photos) {this.photos = photos;}
 	public void setAlbums(Set<Album> albums) {this.albums = albums;}
 	
-	public Set<Statut> getStatuts() {
+	public List<Statut> getStatuts() {
 		return statuts;
 	}
-	public void setStatuts(Set<Statut> statuts) {
+	public void setStatuts(List<Statut> statuts) {
 		this.statuts = statuts;
 	}
 	/**

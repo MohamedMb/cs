@@ -90,7 +90,7 @@
 							  <hr />
 							</div>
 							<div class="col-md-5">
-								<form role="form">
+								<form role="form" action="infosperso" method="post">
 									<div class="radio-inline">
 									  <label>
 									    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
@@ -111,23 +111,19 @@
 									</div>
 								  <div class="form-group">
 								    <label for="exampleInputEmail1">Nom</label>
-								    <input type="text" class="form-control" id="InputNom" placeholder="Entrez nom">
+								    <input type="text" class="form-control" id="InputNom" name="InputNom" placeholder="Entrez nom">
 								  </div>
 								  <div class="form-group">
 								    <label for="exampleInputPassword1">Prénom</label>
-								    <input type="text" class="form-control" id="InputPrenom" placeholder="Entrez prénom">
+								    <input type="text" class="form-control" id="InputPrenom" name="InputPrenom" placeholder="Entrez prénom">
 								  </div>
 								  <div class="form-group">
 								    <label for="exampleInputPassword1">Password</label>
-								    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+								    <input type="password" class="form-control" id="InputPassword" name="InputPassword" placeholder="Password">
 								  </div>
 								  <div class="form-group">
 								    <label for="exampleInputPassword1">Confirmez password</label>
-								    <input type="password" class="form-control" id="InputPassword2" placeholder="Password Confirmation">
-								  </div>
-								  <div class="form-group">
-								    <label for="exampleInputPassword1">Date de naissance (DD-MM-AAAA)</label>
-								    <input type="text" class="form-control" id="InputDate" placeholder="Votre date">
+								    <input type="password" class="form-control" id="InputPassword2" name="InputPassword2" placeholder="Password Confirmation">
 								  </div>
 								  								  
 								  <button type="submit" class="btn btn-default">Sauvegarder</button>

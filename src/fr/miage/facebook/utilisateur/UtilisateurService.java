@@ -40,7 +40,7 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	 * @param password Mot de passe de l'utilisateur
 	 * @return l'utilisateur inscrit, null si aucun utilisateur ne correspond au arguments
 	 */
-	public Utilisateur connexion(String mail, String password){
+	public static Utilisateur connexion(String mail, String password){
 		Utilisateur utilisateur = null;
 		try {
 			//Connection connexion = UtilisateurService.getContext().getInstance().getConnection();
@@ -220,6 +220,7 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 							   "SET date_reponse = '" + Calendar.getInstance().getTime() + "'," +
 							   		" is_validation_demande = '" + 1 + "' " +
 							   "WHERE id_utilisateur = " + demandeur.getId() + " AND id_ami = " + demande.getId());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -291,5 +292,20 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 		}
 		
 		return statuts;
+	}
+	
+	public static Utilisateur modifier(Utilisateur utilisateur){
+		try {
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
+			Statement stmt = connexion.createStatement();
+			stmt.executeUpdate("UPDATE utilisateur " +
+							   "SET nom = '" + utilisateur.getNom() + "'," +
+							   " prenom = '" + utilisateur.getPrenom() + "' " +
+							   "WHERE id = " + utilisateur.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return utilisateur;
 	}
 }

@@ -31,7 +31,7 @@
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
 	
-	<!-- Déconnexion -->
+	<!-- Deconnexion -->
 	<servlet>
 	    <servlet-name>DeconnexionServlet</servlet-name>
 	    <servlet-class>servlets.DeconnexionServlet</servlet-class>
@@ -49,6 +49,13 @@
 	<servlet>
 	    <servlet-name>ProfilServlet</servlet-name>
 	    <servlet-class>servlets.ProfilServlet</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<!-- Info perso. -->
+	<servlet>
+	    <servlet-name>InfosPersoServlet</servlet-name>
+	    <servlet-class>servlets.InfosPersoServlet</servlet-class>
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
 	
@@ -77,7 +84,7 @@
 	    <url-pattern>/profil</url-pattern>
 	</servlet-mapping>
 	
-	<!-- Déconnexion -->
+	<!-- Deconnexion -->
 	<servlet-mapping>
 	    <servlet-name>DeconnexionServlet</servlet-name>
 	    <url-pattern>/deconnexion</url-pattern>
@@ -87,6 +94,12 @@
 	<servlet-mapping>
 	    <servlet-name>OptionServlet</servlet-name>
 	    <url-pattern>/option</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Infos perso. -->
+	<servlet-mapping>
+	    <servlet-name>InfosPersoServlet</servlet-name>
+	    <url-pattern>/infosperso</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Admin -->

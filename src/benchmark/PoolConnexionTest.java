@@ -5,26 +5,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-//import java.util.Map.Entry;
-
-//import org.apache.log4j.Logger;
-import org.junit.Test;
-
-import com.sun.crypto.provider.RSACipher;
 
 import fr.miage.facebook.pool.homemade.CustomConnectionPoolImpl;
-
 
 /**
  * 
  * @author Bouhlal
  *
  */
- 
  
 public class PoolConnexionTest {
 
@@ -36,16 +25,12 @@ public class PoolConnexionTest {
 	private static int MAX_CONNECTIONS = 1000; //limite qu'il ne dépasse pas !
 	private static int INITIAL_CONNECTIONS = 1000; //créé les connexion sur place
 	private static final boolean WAIT_IF_BUSY = true;
-	
 	private boolean UTILISER_THREAD;
-	
 	public static int NB_REQ; 
 	public static String TYPE_REQ; //sinon "insert"
-	
 	private static long dureeEtape;
 	public static HashMap<Integer, Long> dureesConnexions = new HashMap<Integer, Long>();
 
-	
 	public PoolConnexionTest(boolean useThread, int nbQuery, String typeQuery) {
 		UTILISER_THREAD = useThread;
 		NB_REQ = nbQuery;

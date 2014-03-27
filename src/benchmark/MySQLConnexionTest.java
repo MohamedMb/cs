@@ -6,9 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.Iterator;
-
-import org.junit.Test;
 
 public class MySQLConnexionTest {
 	public static String DRIVER = "com.mysql.jdbc.Driver";
@@ -80,7 +77,6 @@ public class MySQLConnexionTest {
 				if(i == connexionInitial) {
 					end = System.currentTimeMillis();
 					//System.out.println(connexionInitial + " connexions a durée " + (end - begin)  + " ms");
-					
 					dureeEtape = end-begin;
 					Integer tempInteger = new Integer(Integer.valueOf(i));
 					Long tempLong = new Long(Long.valueOf(dureeEtape));
@@ -123,16 +119,6 @@ public class MySQLConnexionTest {
 		}
 		
 		endGlobal = System.currentTimeMillis();
-		
-		//Nettoyage de la base après les insert
-		/*if(TYPE_REQ == "insert") {
-			String safeUpdateOff = "SET SQL_SAFE_UPDATES = 0";
-			String deleteTest = "delete from utilisateur where nom = 'test'";
-			String safeUpdateOn = "SET SQL_SAFE_UPDATES = 1";
-			
-			PreparedStatement ps = connexion.prepareStatement(deleteTest);
-			ps.executeUpdate();
-		}*/
 		System.out.println("Temps total des opérations d'exécution des " + operations + " opérations a duré " + (endGlobal - beginGlobal)  + " ms");
 	}
 	

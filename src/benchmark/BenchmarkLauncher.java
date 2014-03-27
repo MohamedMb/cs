@@ -3,7 +3,6 @@ package benchmark;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import org.junit.Test;
 
 /**
  * Montre comment utiliser et récupérer les résultats

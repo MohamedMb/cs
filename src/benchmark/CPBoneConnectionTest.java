@@ -1,4 +1,4 @@
-package connexionBDTest;
+package benchmark;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

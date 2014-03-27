@@ -41,24 +41,99 @@
 			<div class="col-md-11 col-md-offset-1">
 				<div class="tab-pane">
 					<ul class="nav nav-tabs ">
-					  <li class="active"><a href="#option1" data-toggle="tab">Option1</a></li>
-					  <li><a href="#option2" data-toggle="tab">Option2</a></li>
-					  <li><a href="#option3" data-toggle="tab">Option3</a></li>
+					  <li class="active"><a href="#option1" data-toggle="tab"><span class="glyphicon glyphicon-eye-open"></span> Visibilité</a></li>
+					  <li><a href="#option2" data-toggle="tab"><span class="glyphicon glyphicon-bullhorn"></span> Notifications</a></li>
+					  <li><a href="#option3" data-toggle="tab"><span class="glyphicon glyphicon-user"></span> Données personnelles</a></li>
 					</ul>
 					<div class="tab-content">
 						<div id="option1" class="input-group tab-pane active" style="padding-top:5px;">
-						  <input type="checkbox" name="my-checkbox" checked>
-						  option1
+						  <br />
+						  <input type="checkbox" name="my-checkbox" checked> Autoriser les "amis" a voir mes status
+						  <hr />
+						  <input type="checkbox" name="my-checkbox" checked> Autoriser les "amis" a voir mes commentaires
+						  <hr />
+						  <input type="checkbox" name="my-checkbox" checked> Autoriser les "amis" a voir mes photos
+						  <hr />
+						  <input type="checkbox" name="my-checkbox" checked> Autoriser les "amis" a voir mes autres amis
+						  <hr />
 						</div>
 							
 						<div id="option2" class="input-group tab-pane" style="padding-top:5px;">
-						  <input type="checkbox" name="my-checkbox" checked>
-						  option2
+						  <br />
+						  <h3>M'envoyer un message lors :</h3>
+						  <br />
+						  <input type="checkbox" name="my-checkbox" checked> De la publication d'un statut sur mon mur
+						  <hr />
+						  <input type="checkbox" name="my-checkbox" checked> De la publication du statut d'un(e) ami(e)
+						  <hr />
+						  <input type="checkbox" name="my-checkbox" checked> De l'identification sur une photo
+						  <hr />
+						  <input type="checkbox" name="my-checkbox" checked> De l'identification sur un statut
+						  <hr />
+						  <input type="checkbox" name="my-checkbox" checked> De l'identification sur un commentaire
+						  <hr />
 						</div>
 							
 						<div id="option3" class="input-group tab-pane" style="padding-top:5px;">
-						  <input type="checkbox" name="my-checkbox" checked>
-						  option3					  
+						  <div class="row-fluid">
+						  	<div class="col-md-7">
+							  <br />
+							  <h3>Afficher mes informations :</h3>
+							  <br />
+							  <input type="checkbox" name="my-checkbox" checked> A tout le monde
+							  <hr />
+							  <input type="checkbox" name="my-checkbox" checked> Uniquement mes amis
+							  <hr />
+							  <input type="checkbox" name="my-checkbox" checked> Aux amis de mes amis
+							  <hr />
+							  <input type="checkbox" name="my-checkbox" checked> Aux amis du chien de la grande tante par alliance du coté de mon cousin
+							  <hr />
+							</div>
+							<div class="col-md-5">
+								<form role="form">
+									<div class="radio-inline">
+									  <label>
+									    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+									    Homme
+									  </label>
+									</div>
+									<div class="radio-inline">
+									  <label>
+									    <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+									    Femme
+									  </label>
+									</div>
+									<div class="radio-inline">
+									  <label>
+									    <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+									    Autre..
+									  </label>
+									</div>
+								  <div class="form-group">
+								    <label for="exampleInputEmail1">Nom</label>
+								    <input type="text" class="form-control" id="InputNom" placeholder="Entrez nom">
+								  </div>
+								  <div class="form-group">
+								    <label for="exampleInputPassword1">Prénom</label>
+								    <input type="text" class="form-control" id="InputPrenom" placeholder="Entrez prénom">
+								  </div>
+								  <div class="form-group">
+								    <label for="exampleInputPassword1">Password</label>
+								    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+								  </div>
+								  <div class="form-group">
+								    <label for="exampleInputPassword1">Confirmez password</label>
+								    <input type="password" class="form-control" id="InputPassword2" placeholder="Password Confirmation">
+								  </div>
+								  <div class="form-group">
+								    <label for="exampleInputPassword1">Date de naissance (DD-MM-AAAA)</label>
+								    <input type="text" class="form-control" id="InputDate" placeholder="Votre date">
+								  </div>
+								  								  
+								  <button type="submit" class="btn btn-default">Sauvegarder</button>
+								</form>
+							</div>
+						  </div>					  
 						</div>
 					</div>
 				</div>

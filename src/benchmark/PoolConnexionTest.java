@@ -68,7 +68,7 @@ public class PoolConnexionTest {
 			for (int i = palier; i <= MAX_CONNECTIONS ; i += palier) {
 				begin = System.currentTimeMillis();
 				
-				System.out.println(pool.getNumberOfAvailableConnections());
+				//System.out.println(pool.getNumberOfAvailableConnections());
 				for (int k = 0 ; k < i ; k++) {
 					Connection conn = pool.getConnection();
 					if(UTILISER_THREAD) {
@@ -90,9 +90,7 @@ public class PoolConnexionTest {
 							req = "INSERT INTO utilisateur(`nom`,`prenom`, `password`) values('test', 'test', 'password')";
 							PreparedStatement ps = conn.prepareStatement(req);
 							for(int j = 0 ; j < NB_REQ ; j++) {
-								ResultSet res = ps.executeQuery();
 								ps.executeUpdate();
-								res.close();
 							}
 						}
 					}

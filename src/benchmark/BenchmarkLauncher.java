@@ -84,6 +84,10 @@ public class BenchmarkLauncher {
 		HashMap<Integer, Long> resultPoolConnexionSansThreadInsert = poolConnexionSansThreadInsert.getDureesConnexions();
 		System.out.println(resultPoolConnexionSansThreadInsert);
 		*/
+		PoolConnexionTest poolConnexionSansThreadInsert = new PoolConnexionTest(true, 1, "insert");
+		poolConnexionSansThreadInsert.startBenchmark();
+		HashMap<Integer, Long> resultPoolConnexionSansThreadInsert = poolConnexionSansThreadInsert.getDureesConnexions();
+		System.out.println(resultPoolConnexionSansThreadInsert);
 	}
 	
 	

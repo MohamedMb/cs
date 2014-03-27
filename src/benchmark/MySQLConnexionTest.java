@@ -99,7 +99,6 @@ public class MySQLConnexionTest {
 					PreparedStatement ps = connexion.prepareStatement(req);
 					for(int j = 0 ; j < NB_REQ ; j++) {
 						ResultSet res = ps.executeQuery();
-						ps.executeUpdate();
 						res.close();
 					}
 					ps.close();
@@ -108,9 +107,7 @@ public class MySQLConnexionTest {
 					req = "INSERT INTO utilisateur(`nom`,`prenom`, `password`) values('test', 'test', 'password')";
 					PreparedStatement ps = connexion.prepareStatement(req);
 					for(int j = 0 ; j < NB_REQ ; j++) {
-						ResultSet res = ps.executeQuery();
 						ps.executeUpdate();
-						res.close();
 					}
 					ps.close();
 				}

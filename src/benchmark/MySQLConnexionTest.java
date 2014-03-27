@@ -3,6 +3,7 @@ package benchmark;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -16,13 +17,13 @@ public class MySQLConnexionTest {
 	public static String PASSWORD = "";
 	public static int NB_CONNEXION = 1000;
 	private Connection connexion;
-	private static boolean UTILISER_THREAD = true;
+	private boolean UTILISER_THREAD;
 	
 	private HashMap<Integer, Long> dureesConnexions = new HashMap<Integer, Long>();
 	
 	
-	public static int NB_REQ = 4; 
-	public static String TYPE_REQ = "insert"; //sinon "insert"
+	private int NB_REQ; 
+	private String TYPE_REQ; //"select" ou "insert"
 	
 	public MySQLConnexionTest(boolean useThread, int nbQuery, String typeQuery) {
 		UTILISER_THREAD = useThread;
@@ -97,19 +98,22 @@ public class MySQLConnexionTest {
 					req = "SELECT * FROM facebook.utilisateur";
 					PreparedStatement ps = connexion.prepareStatement(req);
 					for(int j = 0 ; j < NB_REQ ; j++) {
-						//res = ps.executeQuery();
-						ps.executeQuery();
+						ResultSet res = ps.executeQuery();
+						ps.executeUpdate();
+						res.close();
 					}
+					ps.close();
 				}
 				else if(TYPE_REQ == "insert") {
 					req = "INSERT INTO utilisateur(`nom`,`prenom`, `password`) values('test', 'test', 'password')";
 					PreparedStatement ps = connexion.prepareStatement(req);
 					for(int j = 0 ; j < NB_REQ ; j++) {
-						//res = ps.executeQuery();
+						ResultSet res = ps.executeQuery();
 						ps.executeUpdate();
+						res.close();
 					}
+					ps.close();
 				}
-				//res.close();
 				connexion.close();
 			}
 			end = System.currentTimeMillis();

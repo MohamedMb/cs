@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.TreeMap;
+
+import com.google.gson.Gson;
 
 public class MySQLConnexionTest {
 	public static String DRIVER = "com.mysql.jdbc.Driver";
@@ -16,7 +18,7 @@ public class MySQLConnexionTest {
 	private Connection connexion;
 	private boolean UTILISER_THREAD;
 	
-	private HashMap<Integer, Long> dureesConnexions = new HashMap<Integer, Long>();
+	private TreeMap<Integer, String> dureesConnexions = new TreeMap<Integer, String>();
 	
 	
 	private int NB_REQ; 
@@ -52,9 +54,9 @@ public class MySQLConnexionTest {
 					//System.out.println(connexionInitial + " connexions a durée " + (end - begin) + " ms");
 					
 					dureeEtape = end-begin;
-					Integer tempInteger = new Integer(Integer.valueOf(i));
-					Long tempLong = new Long(Long.valueOf(dureeEtape));
-					dureesConnexions.put(tempInteger, tempLong);
+					Integer tempNbConnexion = new Integer(Integer.valueOf(i));
+					String tempDuree = new String(String.valueOf(dureeEtape));
+					dureesConnexions.put(tempNbConnexion, tempDuree);
 					
 					connexionInitial += palier;
 					i = 0;
@@ -67,9 +69,9 @@ public class MySQLConnexionTest {
 			end = System.currentTimeMillis();
 			//System.out.println(connexionInitial + " connexions a durée " + (end - begin) + " ms");
 			dureeEtape = end-begin;
-			Integer tempInteger = new Integer(Integer.valueOf(connexionInitial));
-			Long tempLong = new Long(Long.valueOf(dureeEtape));
-			dureesConnexions.put(tempInteger, tempLong);
+			Integer tempNbConnexion = new Integer(Integer.valueOf(connexionInitial));
+			String tempDuree = new String(String.valueOf(dureeEtape));
+			dureesConnexions.put(tempNbConnexion, tempDuree);
 		}
 		else {
 			begin = System.currentTimeMillis();
@@ -78,9 +80,9 @@ public class MySQLConnexionTest {
 					end = System.currentTimeMillis();
 					//System.out.println(connexionInitial + " connexions a durée " + (end - begin)  + " ms");
 					dureeEtape = end-begin;
-					Integer tempInteger = new Integer(Integer.valueOf(i));
-					Long tempLong = new Long(Long.valueOf(dureeEtape));
-					dureesConnexions.put(tempInteger, tempLong);
+					Integer tempNbConnexion = new Integer(Integer.valueOf(i));
+					String tempDuree = new String(String.valueOf(dureeEtape));
+					dureesConnexions.put(tempNbConnexion, tempDuree);
 					
 					connexionInitial += palier;
 					i = 0;
@@ -90,7 +92,7 @@ public class MySQLConnexionTest {
 				connexion = DriverManager.getConnection(URL, USER, PASSWORD);
 				
 				String req = "";
-				if(TYPE_REQ == "select") {
+				if(TYPE_REQ.equals("select")) {
 					req = "SELECT * FROM facebook.utilisateur";
 					PreparedStatement ps = connexion.prepareStatement(req);
 					for(int j = 0 ; j < NB_REQ ; j++) {
@@ -99,7 +101,7 @@ public class MySQLConnexionTest {
 					}
 					ps.close();
 				}
-				else if(TYPE_REQ == "insert") {
+				else if(TYPE_REQ.equals("insert")) {
 					req = "INSERT INTO utilisateur(`nom`,`prenom`, `password`) values('test', 'test', 'password')";
 					PreparedStatement ps = connexion.prepareStatement(req);
 					for(int j = 0 ; j < NB_REQ ; j++) {
@@ -113,9 +115,9 @@ public class MySQLConnexionTest {
 			//System.out.println(connexionInitial + " connexions a durée " + (end - begin) + " ms");
 			
 			dureeEtape = end-begin;
-			Integer tempInteger = new Integer(Integer.valueOf(connexionInitial));
-			Long tempLong = new Long(Long.valueOf(dureeEtape));
-			dureesConnexions.put(tempInteger, tempLong);
+			Integer tempNbConnexion = new Integer(Integer.valueOf(connexionInitial));
+			String tempDuree = new String(String.valueOf(dureeEtape));
+			dureesConnexions.put(tempNbConnexion, tempDuree);
 		}
 		
 		endGlobal = System.currentTimeMillis();
@@ -126,7 +128,10 @@ public class MySQLConnexionTest {
 	 * Pour obtenir les infos afin de dessiner le graph et à recupérer via ajax
 	 * @throws Exception 
 	 */
-	public HashMap<Integer, Long> getDureesConnexions() throws Exception {
-		return dureesConnexions;
+	@Override
+	public String toString() {
+		String result = "";
+		result = new Gson().toJson(dureesConnexions);
+		return result;
 	}
 }

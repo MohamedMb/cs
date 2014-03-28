@@ -1,8 +1,5 @@
 package benchmark;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
 
 /**
  * Montre comment utiliser et récupérer les résultats
@@ -35,20 +32,20 @@ public class BenchmarkLauncher {
 		/*
 		MySQLConnexionTest connexionAvecThreadSelect = new MySQLConnexionTest(true, 1, "select");
 		connexionAvecThreadSelect.startBenchmark();
-		HashMap<Integer, Long> resultConnexionAvecThreadSelect = connexionAvecThreadSelect.getDureesConnexions();
+		HashMap<String, String> resultConnexionAvecThreadSelect = connexionAvecThreadSelect.getDureesConnexions();
 		System.out.println(resultConnexionAvecThreadSelect);
 		//Manière de récupérer les résultats
 		Iterator<Integer> keyHashMapIteratorTS = resultConnexionAvecThreadSelect.keySet().iterator();
 		while (keyHashMapIteratorTS.hasNext()) {
-			Integer key = keyHashMapIteratorTS.next(); //nb connexion
-			Long value = resultConnexionAvecThreadSelect.get(key); //durée
+			String key = keyHashMapIteratorTS.next(); //nb connexion
+			String value = resultConnexionAvecThreadSelect.get(key); //durée
 			System.out.println(key + " --> " + value);
 		}
 		
 		//Select connexion simple sans thread
 		MySQLConnexionTest connexionSansThreadSelect = new MySQLConnexionTest(false, 1, "select");
 		connexionSansThreadSelect.startBenchmark();
-		HashMap<Integer, Long> resultConnexionSansThreadSelect = connexionSansThreadSelect.getDureesConnexions();
+		HashMap<String, String> resultConnexionSansThreadSelect = connexionSansThreadSelect.getDureesConnexions();
 		System.out.println(resultConnexionSansThreadSelect);
 		*/
 		
@@ -56,34 +53,35 @@ public class BenchmarkLauncher {
 		//Select pool de connexion sans thread
 		/*PoolConnexionTest poolConnexionSansThreadSelect = new PoolConnexionTest(false, 1, "select");
 		poolConnexionSansThreadSelect.startBenchmark();
-		HashMap<Integer, Long> resultPoolConnexionSansThreadSelect = poolConnexionSansThreadSelect.getDureesConnexions();
+		HashMap<String, String> resultPoolConnexionSansThreadSelect = poolConnexionSansThreadSelect.getDureesConnexions();
 		System.out.println(resultPoolConnexionSansThreadSelect);*/
 		/*
 		//Insert connexion simple avec thread
 		MySQLConnexionTest connexionAvecThreadInsert = new MySQLConnexionTest(true, 1, "insert");
 		connexionAvecThreadInsert.startBenchmark();
-		HashMap<Integer, Long> resultConnexionAvecThreadInsert = connexionAvecThreadInsert.getDureesConnexions();
+		HashMap<String, String> resultConnexionAvecThreadInsert = connexionAvecThreadInsert.getDureesConnexions();
 		System.out.println(resultConnexionAvecThreadInsert);		
 		
 		//Insert connexion simple sans thread
 		MySQLConnexionTest connexionSansThreadInsert = new MySQLConnexionTest(false, 1, "insert");
 		connexionSansThreadInsert.startBenchmark();
-		HashMap<Integer, Long> resultConnexionSansThreadInsert = connexionSansThreadInsert.getDureesConnexions();
+		HashMap<String, String> resultConnexionSansThreadInsert = connexionSansThreadInsert.getDureesConnexions();
 		System.out.println(resultConnexionSansThreadInsert);
 		
 		//Insert pool de connexion avec thread
 		PoolConnexionTest poolConnexionAvecThreadInsert = new PoolConnexionTest(true, 1, "insert");
 		poolConnexionAvecThreadInsert.startBenchmark();
-		HashMap<Integer, Long> resultPoolConnexionAvecThreadInsert = poolConnexionAvecThreadInsert.getDureesConnexions();
+		HashMap<String, String> resultPoolConnexionAvecThreadInsert = poolConnexionAvecThreadInsert.getDureesConnexions();
 		System.out.println(resultPoolConnexionAvecThreadInsert);
 		
 		//Insert pool de connexion sans thread
 		PoolConnexionTest poolConnexionSansThreadInsert = new PoolConnexionTest(false, 1, "insert");
 		poolConnexionSansThreadInsert.startBenchmark();
-		HashMap<Integer, Long> resultPoolConnexionSansThreadInsert = poolConnexionSansThreadInsert.getDureesConnexions();
+		HashMap<String, String> resultPoolConnexionSansThreadInsert = poolConnexionSansThreadInsert.getDureesConnexions();
 		System.out.println(resultPoolConnexionSansThreadInsert);
 		*/
+		PoolConnexionTest poolConnexionSansThreadSelect = new PoolConnexionTest(false, 1, "select");
+		poolConnexionSansThreadSelect.startBenchmark();
+		System.out.println(poolConnexionSansThreadSelect);
 	}
-	
-	
 }

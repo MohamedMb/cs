@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.TreeMap;
+
+import com.google.gson.Gson;
 
 import fr.miage.facebook.pool.homemade.CustomConnectionPoolImpl;
 
@@ -29,7 +32,7 @@ public class PoolConnexionTest {
 	public static int NB_REQ; 
 	public static String TYPE_REQ; //sinon "insert"
 	private static long dureeEtape;
-	public static HashMap<Integer, Long> dureesConnexions = new HashMap<Integer, Long>();
+	public static TreeMap<Integer, Integer> dureesConnexions = new TreeMap<Integer, Integer>();
 
 	public PoolConnexionTest(boolean useThread, int nbQuery, String typeQuery) {
 		UTILISER_THREAD = useThread;
@@ -63,7 +66,7 @@ public class PoolConnexionTest {
 					else {
 						
 						String req = "";
-						if(TYPE_REQ == "select") {
+						if(TYPE_REQ.equals("select")) {
 							req = "SELECT * FROM facebook.utilisateur";
 							PreparedStatement ps = conn.prepareStatement(req);
 							for(int j = 0 ; j < NB_REQ ; j++) {
@@ -71,7 +74,7 @@ public class PoolConnexionTest {
 								res.close();
 							}
 						}
-						else if(TYPE_REQ == "insert") {
+						else if(TYPE_REQ.equals("insert")) {
 							req = "INSERT INTO utilisateur(`nom`,`prenom`, `password`) values('test', 'test', 'password')";
 							PreparedStatement ps = conn.prepareStatement(req);
 							for(int j = 0 ; j < NB_REQ ; j++) {
@@ -84,9 +87,9 @@ public class PoolConnexionTest {
 				end = System.currentTimeMillis();
 				nbConnexionPool++;
 				dureeEtape = end-begin;
-				Integer tempInteger = new Integer(Integer.valueOf(i));
-				Long tempLong = new Long(Long.valueOf(dureeEtape));
-				dureesConnexions.put(tempInteger, tempLong);
+				Integer tempNbConnexion = new Integer(Integer.valueOf(i));
+				Integer tempDuree = new Integer(Integer.valueOf(String.valueOf(dureeEtape)));
+				dureesConnexions.put(tempNbConnexion, tempDuree);
 				
 				//System.out.println("Pool avec " + i + " connexions a durée " + (end - begin) + " ms");
 			}
@@ -103,7 +106,10 @@ public class PoolConnexionTest {
 	 * Pour obtenir les infos afin de dessiner le graph et à recupérer via ajax
 	 * @throws Exception 
 	 */
-	public HashMap<Integer, Long> getDureesConnexions() throws Exception {
-		return dureesConnexions;
+	@Override
+	public String toString() {
+		String result = "";
+		result = new Gson().toJson(dureesConnexions);
+		return result;
 	}
 }

@@ -23,12 +23,10 @@ public class ProfilServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		HttpSession session = req.getSession();
-		UtilisateurService us = new UtilisateurService();
 		Utilisateur utilisateur = (Utilisateur)session.getAttribute(UtilisateurService.currentUser);
-		String url = "";
 		if (utilisateur != null) {
 			// recherche des statuts de l'utilisateur
-			List<Statut> statuts = us.getStatuts(utilisateur, true);
+			List<Statut> statuts = UtilisateurService.getStatuts(utilisateur, true);
 			req.setAttribute("statuts", statuts);
 			
 			// recherche des photos de l'utilisateur
@@ -45,7 +43,7 @@ public class ProfilServlet extends HttpServlet {
 			req.setAttribute("photos", listPhotos);
 			
 			// recherche des amis de l'utilisateur
-			List<Utilisateur> amis = us.getFriends(utilisateur);;
+			List<Utilisateur> amis = UtilisateurService.getFriends(utilisateur);;
 			req.setAttribute("amis", amis);	
 			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/facebook/profil.jsp").forward(req, resp);

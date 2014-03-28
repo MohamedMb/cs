@@ -66,6 +66,13 @@
 	    <load-on-startup>1</load-on-startup>
 	</servlet>
 	
+	<!-- Admin -->
+	<servlet>
+	    <servlet-name>JSONAdminServletBench</servlet-name>
+	    <servlet-class>servlets.JSONAdminServletBench</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<!-- Index -->
 	<servlet-mapping>
 	    <servlet-name>IndexServlet</servlet-name>
@@ -106,5 +113,11 @@
 	<servlet-mapping>
 	    <servlet-name>AdminServlet</servlet-name>
 	    <url-pattern>/admin</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Reponse ajax -->
+	<servlet-mapping>
+	    <servlet-name>JSONAdminServletBench</servlet-name>
+	    <url-pattern>/admin_json</url-pattern>
 	</servlet-mapping>
 </web-app>

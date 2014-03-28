@@ -46,7 +46,7 @@ public class ConnexionThreadTest extends Thread {
 	public void run() {
 		try {
 			String req = "";
-			if(TYPE_REQ == "select") {
+			if(TYPE_REQ.equals("select")) {
 				req = "SELECT * FROM facebook.utilisateur";
 				PreparedStatement ps = connexion.prepareStatement(req);
 				for(int j = 0 ; j < NB_REQ ; j++) {
@@ -54,7 +54,7 @@ public class ConnexionThreadTest extends Thread {
 					res.close();
 				}
 			}
-			else if(TYPE_REQ == "insert") {
+			else if(TYPE_REQ.equals("insert")) {
 				req = "INSERT INTO utilisateur(`nom`,`prenom`, `password`) values('test', 'test', 'password')";
 				PreparedStatement ps = connexion.prepareStatement(req);
 				for(int j = 0 ; j < NB_REQ ; j++) {

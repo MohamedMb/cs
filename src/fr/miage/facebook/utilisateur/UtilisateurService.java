@@ -29,10 +29,6 @@ import fr.miage.facebook.BusinessEntityService;
 public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	public static final String currentUser = "currentUser";
 	
-	/**
-	 * Regroupement des utilisateurs de l'application
-	 */
-	private Map<Integer, Utilisateur> inscrits;
 	
 	/**
 	 * Tente de se connecter à partir d'un mail et d'un mot de passe
@@ -309,5 +305,23 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 		}
 		
 		return utilisateur;
+	}
+	
+	public static Utilisateur getUtilisateur(Integer id){
+		Utilisateur utilisateur = null;
+		try {
+			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
+			Statement stmt = connexion.createStatement();
+			String query = "SELECT * FROM facebook.utilisateur " +
+					   "WHERE id = " + id;
+			ResultSet rs = stmt.executeQuery(query);
+			if (rs.next())
+				utilisateur = UtilisateurService.load(rs);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return utilisateur;
+		
 	}
 }

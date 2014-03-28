@@ -125,12 +125,26 @@
 			</div>
 			<div style="position: absolute;">
 				<!-- Faire le test, si déja ami ou si ajout  -->
-				<button type="button" class="btn btn-primary"
-					style="z-index: 999; margin-left: 93.7%; margin-top: -90px; background-color: #3B5998; border: 2px solid white;">
-					<span class="glyphicon glyphicon-plus"></span> Ajouter
-				</button>
-				<!--<button type="button" class="btn btn-success" style="z-index: 999;margin-left:95%; margin-top:-90px; background-color:#3B5998; border:2px solid white;"><span class="glyphicon glyphicon-ok"></span>
-                    Ami</button>-->
+				<c:choose>
+					<c:when test="${currentUser.id == profilUtilisateur.id}">
+					</c:when>
+					<c:when test="${currentUser.amis.contains(profilUtilisateur)}">
+						<form action="cs/profil" method="post">
+							<button type="submit" class="btn btn-primary"
+								style="z-index: 999; margin-left: 93.7%; margin-top: -90px; background-color: #3B5998; border: 2px solid white;">
+								<span class="glyphicon glyphicon-plus"></span> Ajouter
+							</button>
+						</form>
+					</c:when>
+					<c:otherwise>
+						<button type="button" class="btn btn-success" style="z-index: 999;margin-left:95%; margin-top:-90px; background-color:#3B5998; border:2px solid white;"><span class="glyphicon glyphicon-ok"></span>
+                    		Ami
+                    	</button>
+					</c:otherwise>
+				</c:choose>
+				
+				
+				
 			</div>
 		</div>
 	</div>
@@ -139,12 +153,7 @@
 			<ul class="nav nav-pills nav-justified">
 				<li class="active"><a href="#statut" data-toggle="pill">Statut</a></li>
 				<li id="test"><a href="#photo" data-toggle="pill">Photo</a></li>
-				<li><a href="#aff_amis" data-toggle="pill">Amis <span
-						class="badge"> <% 
-								if (request.getAttribute("amis") != null)
-									out.print(((List<Utilisateur>)request.getAttribute("amis")).size());
-							%>
-					</span>
+				<li><a href="#aff_amis" data-toggle="pill">Amis<span class="badge"> ${profilUtilisateur.demandes.size()} </span>
 				</a></li>
 			</ul>
 		</div>
@@ -194,8 +203,7 @@
 								}else{
 							%>
 							<div class="alert alert-info">
-								<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez
-								aucun statuts pour le moment.
+								<i class="glyphicon glyphicon-warning-sign"></i> Aucun statuts pour le moment.
 							</div>
 							<%
 								}
@@ -271,8 +279,7 @@
 									}else{
 								%>
 									<div class="alert alert-info">
-										<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez
-										aucun ami pour le moment.
+										<i class="glyphicon glyphicon-warning-sign"></i> Aucun ami pour le moment.
 									</div>
 									<%
 									}
@@ -287,10 +294,10 @@
 						<div id="aff_amis" class="input-group tab-pane"
 							style="padding-top: 5px;">
 							<ul class="list-inline">
-								<c:forEach items="${currentUser.demandes}" var="demande">
+								<c:forEach items="${profilUtilisateur.demandes}" var="demande">
 									<li style="margin-right: 15px; margin-left: 15px;" class="span4">
 										<div class="media">
-											<a class="pull-left" href="#"> <img
+											<a class="pull-left" href="/cs/profil?id=${demande.id}"> <img
 												class="media-object img-thumbnail"
 												src="bootstrap/img/user.png" alt="64x64"
 												style="width: 64px; height: 64px;" />
@@ -339,8 +346,8 @@
 									}else{
 								%>
 								<div class="alert alert-info">
-									<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez
-									aucun ami pour le moment.
+									<i class="glyphicon glyphicon-warning-sign"></i> 
+									Aucun ami pour le moment.
 								</div>
 								<%			
 									}

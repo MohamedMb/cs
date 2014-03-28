@@ -25,9 +25,7 @@ public class ProfilServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		Utilisateur utilisateur = (Utilisateur)session.getAttribute(UtilisateurService.currentUser);
 		if (utilisateur != null) {
-			// recherche des statuts de l'utilisateur
-			List<Statut> statuts = UtilisateurService.getStatuts(utilisateur, true);
-			req.setAttribute("statuts", statuts);
+			
 			
 			// recherche des photos de l'utilisateur
 			List<Photo> listPhotos = new ArrayList<Photo>();
@@ -42,9 +40,23 @@ public class ProfilServlet extends HttpServlet {
 			listPhotos.add(new Photo("upload/image1.jpg"));
 			req.setAttribute("photos", listPhotos);
 			
+			Utilisateur profilUtilisateur;
+			if (req.getParameter("id") != null && !utilisateur.getId().equals(Integer.parseInt(req.getParameter("id")))){
+				profilUtilisateur = UtilisateurService.getUtilisateur(Integer.parseInt(req.getParameter("id")));
+			}
+			else{
+				profilUtilisateur = utilisateur;
+			}
+				
+			UtilisateurService.synchronization(profilUtilisateur);
+			session.setAttribute("profilUtilisateur", profilUtilisateur);
+			
 			// recherche des amis de l'utilisateur
-			List<Utilisateur> amis = UtilisateurService.getFriends(utilisateur);;
-			req.setAttribute("amis", amis);	
+			List<Utilisateur> amis = UtilisateurService.getFriends(profilUtilisateur);
+			List<Statut> statuts = UtilisateurService.getStatuts(profilUtilisateur, true);
+			// recherche des statuts de l'utilisateur
+			req.setAttribute("statuts", statuts);
+			req.setAttribute("amis", amis);
 			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/facebook/profil.jsp").forward(req, resp);
 		}else
@@ -54,6 +66,20 @@ public class ProfilServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		HttpSession session = req.getSession();
+		Utilisateur utilisateur = (Utilisateur)session.getAttribute(UtilisateurService.currentUser);
+		Utilisateur profilUtilisateur = (Utilisateur)session.getAttribute("profilUtilisateur");
+		
+		if (!utilisateur.equals(profilUtilisateur)){
+			UtilisateurService.synchronization(utilisateur);
+			if (!utilisateur.getDemandes().contains(profilUtilisateur)){
+				if (!utilisateur.getAmis().contains(profilUtilisateur)){
+					UtilisateurService.demandeAmis(utilisateur, profilUtilisateur);
+				}
+				else
+					UtilisateurService.accepterDemande(profilUtilisateur, utilisateur);
+			}
+		}
 		this.doGet(req, resp);
 	}
 }

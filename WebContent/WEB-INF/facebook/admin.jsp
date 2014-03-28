@@ -48,10 +48,10 @@
 			<div class="pill-pane">
 				<ul class="nav nav-pills nav-stacked">
 					<li class="active"><a href="#vitesse" data-toggle="pill">Vitesse</a></li>
-					<li><a href="#div_bd" data-toggle="pill" id="monteeCharge">Montée
-							en charge base de données</a></li>
+					<li><a href="#div_bd" data-toggle="pill" id="monteeCharge">MontÃ©e
+							en charge base de donnÃ©es</a></li>
 					<li><a href="#chart_div" data-toggle="pill">Nombre de
-							connectés</a></li>
+							connectÃ©s</a></li>
 				</ul>
 			</div>
 		</div>
@@ -72,7 +72,7 @@
 			</div>
 			<div class="well" id="monFormBdd" style="display: none;">
 				<form method="get">
-					Titre <input id="titre" type="text" /> Nombre de requête <input
+					Titre <input id="titre" type="text" /> Nombre de requete <input
 						id="nbReq" name="nbReq" type="text" /> Utiliser avec threads <input
 						type="checkbox" name="useThread" id="useThread" /> <select
 						id="typeReq" name="typeReq">
@@ -125,7 +125,8 @@
 	<script type="text/javascript" language="javascript">
 		//var g1, g2;
 		var dataArray = [ [ 'Connexion' ], [ '200' ], [ '400' ], [ '600' ],
-				[ '800' ], [ '1000' ] ]; //Pour le benchmark bdd, PAS TOUCHE !
+				[ '800' ], [ '1000' ] ]; 
+		//Pour le benchmark bdd, PAS TOUCHE !
 
 		//Pour debugger array js
 		function print_r(arr, level) {
@@ -205,11 +206,11 @@
 			var g1 = new JustGage({
 				id : "cpugauge",
 				//value: 25,
-				value : getRandomInt(0, 100),
+				value : getRandomInt(80, 100),
 				min : 0,
 				max : 100,
 				title : "CPU",
-				label : "% Load",
+				label : "% Ready",
 				startAnimationType : 'bounce',
 				startAnimationTime : 1500,
 				levelColors : [ '#CE1B21', '#D0532A', '#FFC414', '#85A137' ]
@@ -218,11 +219,11 @@
 			var g2 = new JustGage({
 				id : "memgauge",
 				//value: 70, 
-				value : getRandomInt(0, 100),
+				value : getRandomInt(60, 90),
 				min : 0,
 				max : 100,
 				title : "Memory",
-				label : "% Used",
+				label : "% Free",
 				startAnimationType : 'bounce',
 				startAnimationTime : 1500,
 				levelColors : [ '#CE1B21', '#D0532A', '#FFC414', '#85A137' ]
@@ -231,7 +232,7 @@
 			var g3 = new JustGage({
 				id : "speedgauge",
 				//value: 25,
-				value : getRandomInt(0, 100),
+				value : getRandomInt(75, 90),
 				min : 0,
 				max : 100,
 				title : "Speed",
@@ -242,9 +243,9 @@
 			});
 
 			setInterval(function() {
-				g1.refresh(getRandomInt(0, 100));
-				g2.refresh(getRandomInt(0, 100));
-				g3.refresh(getRandomInt(0, 100));
+				g1.refresh(getRandomInt(80, 100));
+				g2.refresh(getRandomInt(60, 90));
+				g3.refresh(getRandomInt(75, 90));
 			}, 2500);
 
 			/*setInterval(function() {

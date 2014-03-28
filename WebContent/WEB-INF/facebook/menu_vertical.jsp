@@ -9,7 +9,7 @@
 			  		</a>
 			 	</div>
 			  	<div class="col-md-10" style="padding-top:15px;">
-			  		<a href="./profil">Modifier mon profil</a>
+			  		<a href="./profil" style="font-weight:bold;">Modifier mon profil</a>
 			  	</div>
 			</div>
 			<div style="padding:10px;">

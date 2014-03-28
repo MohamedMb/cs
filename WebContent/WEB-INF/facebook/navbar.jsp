@@ -28,11 +28,12 @@
 			</button>
 		</form>
 		<ul class="nav navbar-nav navbar-right" style="padding-top:8.5px;">
-			<li>
-				<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="32x32" style="width:46px; height:46px;">
+			<li style="padding:-3px;">
+				<a href="./profil" style="padding-top:-5px;"><img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="32x32" style="width:46px; height:46px;"></a>
+<!-- 					<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="32x32" style="width:46px; height:46px;"> -->
 			</li>
-			<li style="color:white; padding:12px; font-weight:bold;">
-				${currentUser.prenom} ${currentUser.nom}
+			<li style="color:white; padding:0px; font-weight:bold;">
+				<a href="./profil" style="padding-top:-5px; color:white;">${currentUser.prenom} ${currentUser.nom}</a>
 			</li>					
 			<li style="padding:5px; padding-right:20px;">
 				<div class="btn-group">

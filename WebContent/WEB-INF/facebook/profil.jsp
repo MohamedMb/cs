@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<%@ page import="fr.miage.facebook.utilisateur.UtilisateurService" %>
-<%@ page import="java.util.List" %>
-<%@ page import="fr.miage.facebook.utilisateur.Statut" %>
-<%@ page import="fr.miage.facebook.utilisateur.Photo" %>
-<%@ page import="fr.miage.facebook.utilisateur.Utilisateur" %>
+<%@ page import="fr.miage.facebook.utilisateur.UtilisateurService"%>
+<%@ page import="java.util.List"%>
+<%@ page import="fr.miage.facebook.utilisateur.Statut"%>
+<%@ page import="fr.miage.facebook.utilisateur.Photo"%>
+<%@ page import="fr.miage.facebook.utilisateur.Utilisateur"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <!-- Header -->
 <%@ include file="header.jsp"%>
@@ -99,7 +100,8 @@
 </script>
 <body>
 	<!-- MENU HAUT -->
-	<jsp:useBean id="currentUser" class="fr.miage.facebook.utilisateur.Utilisateur" scope="session" />
+	<jsp:useBean id="currentUser"
+		class="fr.miage.facebook.utilisateur.Utilisateur" scope="session" />
 	<%
 		currentUser = (fr.miage.facebook.utilisateur.Utilisateur) request.getAttribute(UtilisateurService.currentUser);
 	%>
@@ -137,16 +139,13 @@
 			<ul class="nav nav-pills nav-justified">
 				<li class="active"><a href="#statut" data-toggle="pill">Statut</a></li>
 				<li id="test"><a href="#photo" data-toggle="pill">Photo</a></li>
-				<li>
-					<a href="#aff_amis" data-toggle="pill">Amis
-						<span class="badge">
-							<% 
+				<li><a href="#aff_amis" data-toggle="pill">Amis <span
+						class="badge"> <% 
 								if (request.getAttribute("amis") != null)
 									out.print(((List<Utilisateur>)request.getAttribute("amis")).size());
 							%>
-						</span>
-					</a>
-				</li>
+					</span>
+				</a></li>
 			</ul>
 		</div>
 	</div>
@@ -160,11 +159,14 @@
 				<div class="panel-body">
 					<div class="tab-content">
 						<!-- Affichage tab status + ecriture statut -->
-						<div id="statut" class="input-group tab-pane active" style="padding-top: 5px;">
-							<form id="formAjoutStatut" method="post" action="index" novalidate="novalidate">
-										<textarea class="form-control textarea" rows="3" placeholder="Partage ton statut !" cols="500"></textarea>
-										<span class="txtError">Vous devez remplir le champs de texte.</span>
-										<input type="submit" class="btn btn-primary pull-right" />
+						<div id="statut" class="input-group tab-pane active"
+							style="padding-top: 5px;">
+							<form id="formAjoutStatut" method="post" action="index"
+								novalidate="novalidate">
+								<textarea class="form-control textarea" rows="3"
+									placeholder="Partage ton statut !" cols="500"></textarea>
+								<span class="txtError">Vous devez remplir le champs de
+									texte.</span> <input type="submit" class="btn btn-primary pull-right" />
 							</form>
 							<hr>
 							<% 
@@ -172,31 +174,33 @@
 									List<Statut> statuts = (List<Statut>)request.getAttribute("statuts");
 									for (Statut statut : statuts) {
 							%>
-										<div class="media">
-											<a class="pull-left" href="#"> 
-												<img class="media-object img-thumbnail" src="bootstrap/img/user.png"
-													 alt="64x64" style="width: 64px; height: 64px;">
-											</a>
-											<div class="media-body">
-												<h4 class="media-heading"><%= statut.getUtilisateur().getPrenom() %> <%= statut.getUtilisateur().getNom() %></h4>
-												<p><%= statut.getLibelle() %></p>
-												<a class="btn btn-link" style="color: green;">J'aime</a> <a
-													class="btn btn-link" style="color: red;">J'aime pas</a> <a
-													class="btn btn-link btn_comment">Commenter</a>
-											</div>
-										</div>
-										<hr />
+							<div class="media">
+								<a class="pull-left" href="#"> <img
+									class="media-object img-thumbnail" src="bootstrap/img/user.png"
+									alt="64x64" style="width: 64px; height: 64px;">
+								</a>
+								<div class="media-body">
+									<h4 class="media-heading"><%= statut.getUtilisateur().getPrenom() %>
+										<%= statut.getUtilisateur().getNom() %></h4>
+									<p><%= statut.getLibelle() %></p>
+									<a class="btn btn-link" style="color: green;">J'aime</a> <a
+										class="btn btn-link" style="color: red;">J'aime pas</a> <a
+										class="btn btn-link btn_comment">Commenter</a>
+								</div>
+							</div>
+							<hr />
 							<%
 									}
 								}else{
 							%>
-									<div class="alert alert-info">
-										<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun statuts pour le moment.
-									</div>
+							<div class="alert alert-info">
+								<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez
+								aucun statuts pour le moment.
+							</div>
 							<%
 								}
 							%>
-							
+
 						</div>
 						<!-- Affichage tab photos -->
 						<div id="photo" class="input-group tab-pane"
@@ -243,19 +247,21 @@
 							<!-- gallerie de photos -->
 							<div id="links" class="container-fluid">
 								<div class="row-fluid col-md-12">
-								<% 
+									<% 
 									if (request.getAttribute("photos") != null && ((List<Photo>)request.getAttribute("photos")).size() > 0) {
 										List<Photo> photos = (List<Photo>)request.getAttribute("photos");
 										int i = 0;
 										for (Photo photo : photos) {
 											
 								%>
-											<div class="col-md-3">
-												<a href="<%= photo.getLien() %>" title="<%= photo.getLien() %>" data-gallery> 
-													<img src="<%= photo.getLien() %>" alt="<%= photo.getLien() %>" width="100%">
-												</a>
-											</div>
-								<%
+									<div class="col-md-3">
+										<a href="<%= photo.getLien() %>"
+											title="<%= photo.getLien() %>" data-gallery> <img
+											src="<%= photo.getLien() %>" alt="<%= photo.getLien() %>"
+											width="100%">
+										</a>
+									</div>
+									<%
 											i++;
 											if (i % 4 == 0 ) {
 												out.println("</div>");
@@ -264,20 +270,44 @@
 										}
 									}else{
 								%>
-										<div class="alert alert-info">
-											<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun ami pour le moment.
-										</div>
-								<%
+									<div class="alert alert-info">
+										<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez
+										aucun ami pour le moment.
+									</div>
+									<%
 									}
 								%>
 								</div>
-								
-								
+
+
 							</div>
 						</div>
 
+						<!-- Affichage tab demandes d'amis -->
+						<div id="aff_amis" class="input-group tab-pane"
+							style="padding-top: 5px;">
+							<ul class="list-inline">
+								<c:forEach items="${currentUser.demandes}" var="demande">
+									<li style="margin-right: 15px; margin-left: 15px;" class="span4">
+										<div class="media">
+											<a class="pull-left" href="#"> <img
+												class="media-object img-thumbnail"
+												src="bootstrap/img/user.png" alt="64x64"
+												style="width: 64px; height: 64px;" />
+											</a>
+											<div class="media-body pull-right">
+												<h4 class="media-heading" style="margin-top: 25px;">${demande.prenom} ${demande.nom}</h4>
+											</div>
+										</div>
+									</li>
+								</c:forEach>
+								
+							</ul>
+						</div>
+
 						<!-- Affichage tab Amis -->
-						<div id="aff_amis" class="input-group tab-pane" style="padding-top: 5px;">
+						<div id="aff_amis" class="input-group tab-pane"
+							style="padding-top: 5px;">
 							<ul class="list-inline">
 								<%
 									if (request.getAttribute("amis") != null && ((List<Utilisateur>)request.getAttribute("amis")).size() > 0) {
@@ -286,16 +316,19 @@
 										for (Utilisateur ami : amis) {
 												
 								%>
-											<li style="margin-right: 15px; margin-left: 15px;" class="span4">
-												<div class="media">
-													<a class="pull-left" href="#">
-														<img class="media-object img-thumbnail" src="bootstrap/img/user.png" alt="64x64" style="width: 64px; height: 64px;" />
-													</a>
-													<div class="media-body pull-right">
-														<h4 class="media-heading" style="margin-top: 25px;"><%= ami.getPrenom() %> <%= ami.getNom() %></h4>
-													</div>
-												</div>
-											</li>
+								<li style="margin-right: 15px; margin-left: 15px;" class="span4">
+									<div class="media">
+										<a class="pull-left" href="#"> <img
+											class="media-object img-thumbnail"
+											src="bootstrap/img/user.png" alt="64x64"
+											style="width: 64px; height: 64px;" />
+										</a>
+										<div class="media-body pull-right">
+											<h4 class="media-heading" style="margin-top: 25px;"><%= ami.getPrenom() %>
+												<%= ami.getNom() %></h4>
+										</div>
+									</div>
+								</li>
 								<%
 											i++;
 											if (i % 3 == 0 ) {
@@ -305,9 +338,10 @@
 										}
 									}else{
 								%>
-										<div class="alert alert-info">
-											<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez aucun ami pour le moment.
-										</div>
+								<div class="alert alert-info">
+									<i class="glyphicon glyphicon-warning-sign"></i> Vous n'avez
+									aucun ami pour le moment.
+								</div>
 								<%			
 									}
 								%>

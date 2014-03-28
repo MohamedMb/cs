@@ -94,9 +94,10 @@
 													<a class="btn btn-link btn_comment">Commenter</a>
 												</div>
 											</div>
+											<hr/>
 										</c:forEach>
 										
-										<hr/>
+										
 						</div>	
 						<div id="application" class="tab-pane"></div>
 					</div>

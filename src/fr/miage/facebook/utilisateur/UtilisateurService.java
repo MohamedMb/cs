@@ -240,15 +240,17 @@ public class UtilisateurService extends BusinessEntityService<Utilisateur> {
 	 * @param Statut statut Statut de l'utilisateur
 	 * @return vrai si le statut à été correctement ajouté, faux sinon.
 	 */
-	public static boolean ajouterStatut(Statut statut) {
+	public boolean ajouterStatut(Statut statut) {
 		try {
 			Connection connexion = UtilisateurService.getContext().getInstanceBoneCP().getConnection();
 			Statement stmt = connexion.createStatement();
 			
-			String query = "INSERT INTO statut (id_utilisateur, libelle) VALUES ('?', '?')";
-			PreparedStatement preparedStatement = connexion.prepareStatement(query);
-			preparedStatement.setInt(1, statut.getUtilisateur().getId());
-			preparedStatement.setString(2, statut.getLibelle());
+//			String query = "INSERT INTO statut (id_utilisateur, libelle) VALUES ('?', '?')";
+//			PreparedStatement preparedStatement = connexion.prepareStatement(query);
+//			preparedStatement.setInt(1, statut.getUtilisateur().getId());
+//			preparedStatement.setString(2, statut.getLibelle());
+			
+			String query = "INSERT INTO statut (id_utilisateur, libelle) VALUES ('"+statut.getUtilisateur().getId()+"', '"+statut.getLibelle()+"')";
 			
 			stmt.executeUpdate(query);
 			return true;

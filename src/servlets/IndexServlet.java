@@ -78,8 +78,7 @@ public class IndexServlet extends HttpServlet {
 			   String cle = (String) it.next();
 			   out.println(map.get(cle));
 			}
-		}else{
-			out.print("Erreur lors de l'import de photos") ;
+			//out.print("Erreur lors de l'import de photos") ;
 		}
 	}
 }

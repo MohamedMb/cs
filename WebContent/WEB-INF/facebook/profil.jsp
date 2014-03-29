@@ -7,96 +7,6 @@
 <html>
 <!-- Header -->
 <%@ include file="header.jsp"%>
-<script>
-		$('#links').onclick = function(event) {
-		event = event || window.event;
-		var target = event.target || event.srcElement, link = target.src ? target.parentNode
-				: target, options = {
-			index : link,
-			event : event
-		}, links = this.getElementsByTagName('a');
-		blueimp.Gallery(links, options);
-	};
-
-	$('document').on('click', 'ta_comment > button.close', function() {
-		console.log('TEST');
-	});	
-		
-	
-	//--- ajout d'un statut ---
-	$('#formAjoutStatut').on('submit', function(e) {
-		e.preventDefault();
-		// test si la textarea n'est pas vide
-		if ($(this).find('textarea').val() != '') {
-			$(this).find('span.txtError').hide();
-			// envoi de la requête AJAX
-			$.ajax({
-				type: $(this).attr('method'),
-				url: $(this).attr('action'),
-				data: {
-					statut: $(this).find('textarea').val()
-				},
-				success: function() {
-					$('this textarea').val('');
-				}
-			});
-		}else{
-			$(this).find('span.txtError').show();
-		}
-	});
-
-	$(document).ready(
-					function() {
-						$('#test').on('click', function() {
-							console.log('test');
-						});
-
-						$("#upload_link").on('click', function(e) {
-							e.preventDefault();
-							$("#upload:hidden").trigger('click');
-						});
-						
-						
-						$("#popoverAmi").popover({html:true, title: 'Amis', content: "Aucune demande d'ajout ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
-						$("#popoverMessage").popover({html:true, title: 'Messages', content: "Aucun message ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
-						$("#popoverNotification").popover({html:true, title: 'Notifications', content: "Aucune notification ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
-						
-						$('#formAjoutStatut textarea').one('focus',function()
-						{
-							$(this).wysihtml5({
-								stylesheets: [],
-								color: true,
-								locale: "fr-FR"
-							});
-						});
-
-						$('.btn_comment')
-								.on(
-										'click',
-										function() {
-											if (!$(this).parents('.media-body')
-													.hasClass('comment_active')) {
-												$(this).css('display', 'none');
-												$(this)
-														.parents('.media-body')
-														.addClass(
-																'comment_active');
-												$(this)
-														.parents('.media-body')
-														.append(
-																'<div class="ta_comment" style="width: 100%;">'
-																		+ '<button type="button" class="close pull-right" aria-hidden="true">&times;</button>'
-																		+ '<textarea class="form-control" rows="1" placeholder="Commente !" cols="500"></textarea>'
-																		+ '</div>');
-											}
-										});
-
-						//$('.ta_comment').children('.close').on('click', function() {
-						$('button.close').on('click', function() {
-							console.log('TEST');
-						});
-					});
-</script>
 <body>
 	<!-- MENU HAUT -->
 	<jsp:useBean id="currentUser" class="fr.miage.facebook.utilisateur.Utilisateur" scope="session" />
@@ -321,4 +231,94 @@
 		</div>
 	</div>
 </body>
+<script>
+		$('#links').onclick = function(event) {
+		event = event || window.event;
+		var target = event.target || event.srcElement, link = target.src ? target.parentNode
+				: target, options = {
+			index : link,
+			event : event
+		}, links = this.getElementsByTagName('a');
+		blueimp.Gallery(links, options);
+	};
+
+	$('document').on('click', 'ta_comment > button.close', function() {
+		console.log('TEST');
+	});	
+		
+	
+	//--- ajout d'un statut ---
+	$('#formAjoutStatut').on('submit', function(e) {
+		e.preventDefault();
+		// test si la textarea n'est pas vide
+		if ($(this).find('textarea').val() != '') {
+			$(this).find('span.txtError').hide();
+			// envoi de la requête AJAX
+			$.ajax({
+				type: $(this).attr('method'),
+				url: $(this).attr('action'),
+				data: {
+					statut: $(this).find('textarea').val()
+				},
+				success: function() {
+					$('this textarea').val('');
+				}
+			});
+		}else{
+			$(this).find('span.txtError').show();
+		}
+	});
+
+	$(document).ready(
+					function() {
+						$('#test').on('click', function() {
+							console.log('test');
+						});
+
+						$("#upload_link").on('click', function(e) {
+							e.preventDefault();
+							$("#upload:hidden").trigger('click');
+						});
+						
+						
+						$("#popoverAmi").popover({html:true, title: 'Amis', content: "Aucune demande d'ajout ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+						$("#popoverMessage").popover({html:true, title: 'Messages', content: "Aucun message ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+						$("#popoverNotification").popover({html:true, title: 'Notifications', content: "Aucune notification ! <img class='img-rounded' src='bootstrap/img/forever_alone.png' alt='foreverAlone' style='width:32px; height:32px;'>"});
+						
+						$('#formAjoutStatut textarea').one('focus',function()
+						{
+							$(this).wysihtml5({
+								stylesheets: [],
+								color: true,
+								locale: "fr-FR"
+							});
+						});
+
+						$('.btn_comment')
+								.on(
+										'click',
+										function() {
+											if (!$(this).parents('.media-body')
+													.hasClass('comment_active')) {
+												$(this).css('display', 'none');
+												$(this)
+														.parents('.media-body')
+														.addClass(
+																'comment_active');
+												$(this)
+														.parents('.media-body')
+														.append(
+																'<div class="ta_comment" style="width: 100%;">'
+																		+ '<button type="button" class="close pull-right" aria-hidden="true">&times;</button>'
+																		+ '<textarea class="form-control" rows="1" placeholder="Commente !" cols="500"></textarea>'
+																		+ '</div>');
+											}
+										});
+
+						//$('.ta_comment').children('.close').on('click', function() {
+						$('button.close').on('click', function() {
+							console.log('TEST');
+						});
+					});
+</script>
 </html>

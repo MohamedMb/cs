@@ -72,8 +72,8 @@
 			</div>
 			<div class="well" id="monFormBdd" style="display: none;">
 				<form method="get">
-					Titre <input id="titre" type="text" /> Nombre de requête <input
-						id="nbReq" name="nbReq" type="text" /> Utiliser avec threads <input
+					Titre <input id="titre" type="text" /> Nombre de requête par connexion
+					<input id="nbReq" name="nbReq" type="text" /> Utiliser avec threads <input
 						type="checkbox" name="useThread" id="useThread" /> <select
 						id="typeReq" name="typeReq">
 						<option value="select">Select</option>
@@ -194,7 +194,7 @@
 						i++;
 					});
 					//alert(print_r(dataArray));
-					editChartBD(dataArray);
+					drawChartBD(dataArray);
 				});
 
 			});
@@ -260,31 +260,10 @@
 		//google.setOnLoadCallback(drawChartBD);
 		google.setOnLoadCallback(drawChart);
 
-		function editChartBD(data) {
+		function drawChartBD(data) {
 			var tempData = google.visualization.arrayToDataTable(data);
-
 			new google.visualization.LineChart(document
 					.getElementById('div_bd')).draw(tempData, {
-				curveType : "function",
-				//fontSize:8,
-				width : 1000,
-				height : 400,
-				vAxis : {
-					minValue : 0,
-					maxValue : 1000
-				},
-				hAxis : {
-					minValue : 0,
-					maxValue : 40000
-				}
-			});
-			//chart.draw(data, options);
-		}
-		function drawChartBD() {
-			var data = google.visualization.arrayToDataTable(dataArray);
-
-			new google.visualization.LineChart(document
-					.getElementById('div_bd')).draw(data, {
 				curveType : "function",
 				//fontSize:8,
 				width : 1000,

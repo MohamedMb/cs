@@ -47,7 +47,7 @@ public class ConnexionThreadTest extends Thread {
 		try {
 			String req = "";
 			if(TYPE_REQ.equals("select")) {
-				req = "SELECT * FROM facebook.utilisateur";
+				req = "SELECT * FROM facebook.utilisateur where id = 1";
 				PreparedStatement ps = connexion.prepareStatement(req);
 				for(int j = 0 ; j < NB_REQ ; j++) {
 					ResultSet res = ps.executeQuery();
